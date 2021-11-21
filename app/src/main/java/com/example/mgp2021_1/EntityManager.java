@@ -3,6 +3,8 @@ package com.example.mgp2021_1;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.Entities.EntityBase;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;

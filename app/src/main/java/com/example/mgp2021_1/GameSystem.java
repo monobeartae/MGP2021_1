@@ -28,6 +28,8 @@ public class GameSystem {
         StateManager.Instance.AddState(new Mainmenu());
         StateManager.Instance.AddState(new MainGameSceneState());
         StateManager.Instance.AddState(new PauseState());
+        StateManager.Instance.AddState(new HelpMenu());
+        StateManager.Instance.AddState(new OptionsMenu());
     }
 
     public void SetIsPaused(boolean _newIsPaused)

@@ -43,7 +43,6 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         btn_optionsmenu.setOnClickListener(this); //Set Listener to this button --> Back Button
 
 
-		  StateManager.Instance.AddState(new Mainmenu());
     }
 
     @Override

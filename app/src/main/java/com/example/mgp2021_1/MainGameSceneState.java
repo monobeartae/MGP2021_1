@@ -1,12 +1,10 @@
 package com.example.mgp2021_1;
 
-import android.app.Activity;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.os.Debug;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
+
+import com.example.mgp2021_1.Entities.RenderBackground;
+import com.example.mgp2021_1.Entities.Ship;
 
 // Created by TanSiewLan2021
 

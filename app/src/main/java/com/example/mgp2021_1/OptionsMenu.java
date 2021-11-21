@@ -40,7 +40,6 @@ public class OptionsMenu extends Activity implements OnClickListener, StateBase 
         btn_Helpmenu.setOnClickListener(this); //Set Listener to this button --> Back Button
 
 
-        StateManager.Instance.AddState(new OptionsMenu());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.mgp2021_1;
+package com.example.mgp2021_1.Entities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,6 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
+
+import com.example.mgp2021_1.EntityManager;
+import com.example.mgp2021_1.LayerConstants;
+import com.example.mgp2021_1.R;
 
 public class Ship implements EntityBase {
     private boolean isDone = false;

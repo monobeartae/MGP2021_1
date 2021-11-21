@@ -1,4 +1,4 @@
-package com.example.mgp2021_1;
+package com.example.mgp2021_1.Entities;
 
 import android.graphics.Canvas;
 import android.view.SurfaceView;
