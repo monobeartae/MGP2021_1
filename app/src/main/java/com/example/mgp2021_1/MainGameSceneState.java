@@ -3,6 +3,7 @@ package com.example.mgp2021_1;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.Entities.Joystick;
 import com.example.mgp2021_1.Entities.RenderBackground;
 import com.example.mgp2021_1.Entities.RenderTextEntity;
 import com.example.mgp2021_1.Entities.Ship;
@@ -22,7 +23,7 @@ public class MainGameSceneState implements StateBase {
     {
         RenderBackground.Create();
         RenderTextEntity.Create();
-        Ship.Create();
+        Joystick.Create();
 
 
         // Example to include another Renderview for Pause Button

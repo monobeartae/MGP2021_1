@@ -32,7 +32,7 @@ public class RenderBackground implements EntityBase {
     @Override
     public void Init(SurfaceView _view) {
         bmp = ResourceManager.Instance.GetBitmap(R.drawable.gamescene);
-
+        System.out.println("RenderBackground bmp created");
         //Find the surfaceview size or screensize
         DisplayMetrics metrics=_view.getResources().getDisplayMetrics();
         ScreenHeight=metrics.heightPixels;
@@ -43,12 +43,10 @@ public class RenderBackground implements EntityBase {
 
     @Override
     public void Update(float _dt) {
-        xPos-=_dt*500; //deals with the speed of moving the screen
-        if(xPos<=-ScreenWidth){
-            xPos=0;
-        }
-
-
+//        xPos-=_dt*500; //deals with the speed of moving the screen
+//        if(xPos<=-ScreenWidth){
+//            xPos=0;
+//        }
 
     }
 

@@ -7,10 +7,13 @@ import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.Collidable;
+import com.example.mgp2021_1.Collision;
 import com.example.mgp2021_1.EntityManager;
 import com.example.mgp2021_1.LayerConstants;
 import com.example.mgp2021_1.R;
 import com.example.mgp2021_1.ResourceManager;
+import com.example.mgp2021_1.TouchManager;
 
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -47,7 +50,8 @@ public class Ship implements EntityBase {
 
         // CODE EXAMPLE FOR RANDOM (leave here first for ref):
         Random ranGen = new Random();
-        //e.g.
+        //e.g. of things thatt can be done:
+        // if wan spawn ship in random pos
         //xPos = ranGen.nextFloat() * _view.getWidth();
         //yPos = ranGen.nextFloat() * _view.getHeight();
 
@@ -57,13 +61,25 @@ public class Ship implements EntityBase {
     public void Update(float _dt) {
         tfx.preRotate(20 * _dt,metrics.widthPixels / 10,metrics.heightPixels / 10);
         tfx.postTranslate(10*_dt,10*_dt);
+
+        // SetIsDone(true); when end game?
+        // Collision check example
+        if (TouchManager.Instance.IsDown()) {
+
+            float imgRadius = bmp.getHeight() * 0.5f;
+            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(),
+                    0.0f, xPos, yPos, imgRadius)) {
+                System.out.println("Collided");
+                SetIsDone(true);
+            }
+        }
     }
 
     @Override
     public void Render(Canvas _canvas) {
-        _canvas.drawBitmap(scaledbmp, xPos, yPos, null); //1st image
-        _canvas.drawBitmap(scaledbmp, xPos + ScreenWidth, yPos, null); //2nd image (to show its continuous)
-        _canvas.drawBitmap(scaledbmp, tfx, null);
+        _canvas.drawBitmap(bmp, xPos, yPos, null); //1st image
+        //_canvas.drawBitmap(scaledbmp, xPos + ScreenWidth, yPos, null); //2nd image (to show its continuous)
+        //_canvas.drawBitmap(scaledbmp, tfx, null);
     }
 
     @Override
