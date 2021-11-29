@@ -84,7 +84,7 @@ public class Joystick implements EntityBase {
             float displacementX = touchX - originX;
             float displacementY = touchY - originY;
             float dis_sqred = displacementX * displacementX + displacementY * displacementY;
-            System.out.println("dis_sqred" + dis_sqred);
+
             if (dis_sqred > max_d * max_d)
             {
                posX = originX + (float)(displacementX / Math.sqrt(dis_sqred)) * max_d;
