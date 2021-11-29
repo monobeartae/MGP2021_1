@@ -5,10 +5,12 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.Collision;
 import com.example.mgp2021_1.EntityManager;
 import com.example.mgp2021_1.LayerConstants;
 import com.example.mgp2021_1.R;
 import com.example.mgp2021_1.ResourceManager;
+import com.example.mgp2021_1.TouchManager;
 
 public class Joystick implements EntityBase {
 
@@ -35,7 +37,6 @@ public class Joystick implements EntityBase {
     @Override
     public void SetIsDone(boolean _isDone) {
         isDone=_isDone;
-
     }
 
     @Override
@@ -49,22 +50,53 @@ public class Joystick implements EntityBase {
         joystick_bmp=Bitmap.createScaledBitmap(joystick_bmp,inner_radius * 2,
                 inner_radius * 2, true);
 
-        originX=outer_radius + 30;
-        originY=metrics.heightPixels - outer_radius - 30;
-        posX = originX - inner_radius;
-        posY = originY - inner_radius;
+        posX=originX=outer_radius + 30;
+        posY=originY=metrics.heightPixels - outer_radius - 30;
+
 
     }
 
     @Override
     public void Update(float _dt) {
+        if (!isHeld)
+        {
+            if (TouchManager.Instance.IsDown() &&
+                    Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f,
+                            posX, posY, inner_radius))
+            {
+                isHeld = true;
+            }
+        }
+        else
+        {
+            if (!TouchManager.Instance.HasTouch())
+            {
+                isHeld = false;
+                posX = originX;
+                posY = originY;
+                return;
+            }
 
+            int touchX = TouchManager.Instance.GetPosX();
+            int touchY = TouchManager.Instance.GetPosY();
+            posX = touchX;
+            posY = touchY;
+            float displacementX = touchX - originX;
+            float displacementY = touchY - originY;
+            float dis_sqred = displacementX * displacementX + displacementY * displacementY;
+            System.out.println("dis_sqred" + dis_sqred);
+            if (dis_sqred > max_d * max_d)
+            {
+               posX = originX + (float)(displacementX / Math.sqrt(dis_sqred)) * max_d;
+               posY = originY + (float)(displacementY / Math.sqrt(dis_sqred)) * max_d;
+            }
+        }
     }
 
     @Override
     public void Render(Canvas _canvas) {
         _canvas.drawBitmap(bg_bmp, originX - outer_radius, originY - outer_radius, null);
-        _canvas.drawBitmap(joystick_bmp, posX, posY, null);
+        _canvas.drawBitmap(joystick_bmp, posX - inner_radius, posY - inner_radius, null);
     }
 
     @Override
@@ -92,4 +124,5 @@ public class Joystick implements EntityBase {
         EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
         return result;
     }
+
 }
