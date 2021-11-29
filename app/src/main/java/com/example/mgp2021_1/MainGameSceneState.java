@@ -3,6 +3,7 @@ package com.example.mgp2021_1;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.Entities.CustomButton;
 import com.example.mgp2021_1.Entities.Joystick;
 import com.example.mgp2021_1.Entities.RenderBackground;
 import com.example.mgp2021_1.Entities.RenderTextEntity;
@@ -12,6 +13,9 @@ import com.example.mgp2021_1.Entities.Ship;
 
 public class MainGameSceneState implements StateBase {
     private float timer = 0.0f;
+
+
+    CustomButton pauseButton;
 
     @Override
     public String GetName() {
@@ -24,6 +28,7 @@ public class MainGameSceneState implements StateBase {
         RenderBackground.Create();
         RenderTextEntity.Create();
         Joystick.Create();
+        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 55, 55);
 
 
         // Example to include another Renderview for Pause Button
@@ -48,7 +53,9 @@ public class MainGameSceneState implements StateBase {
         EntityManager.Instance.Update(_dt);
 
 
-        if (TouchManager.Instance.IsClicked()) {
+        //if (TouchManager.Instance.IsClicked())
+        if (pauseButton.CheckButtonClick())
+        {
 
             System.out.println("Game Paused");
             StateManager.Instance.SetOverlayState("Pause");

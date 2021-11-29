@@ -25,7 +25,6 @@ public class Joystick implements EntityBase {
 
 
     private Bitmap bg_bmp=null,joystick_bmp=null;
-    private Bitmap bg_scaledbmp=null, joystick_scaledbmp=null;
 
 
     @Override
@@ -45,9 +44,9 @@ public class Joystick implements EntityBase {
         joystick_bmp = ResourceManager.Instance.GetBitmap(R.drawable.joystick);
 
         DisplayMetrics metrics=_view.getResources().getDisplayMetrics();
-        bg_scaledbmp=Bitmap.createScaledBitmap(bg_bmp,outer_radius * 2,
+        bg_bmp=Bitmap.createScaledBitmap(bg_bmp,outer_radius * 2,
                 outer_radius * 2, true);
-        joystick_scaledbmp=Bitmap.createScaledBitmap(joystick_bmp,inner_radius * 2,
+        joystick_bmp=Bitmap.createScaledBitmap(joystick_bmp,inner_radius * 2,
                 inner_radius * 2, true);
 
         originX=outer_radius + 30;
@@ -64,13 +63,13 @@ public class Joystick implements EntityBase {
 
     @Override
     public void Render(Canvas _canvas) {
-        _canvas.drawBitmap(bg_scaledbmp, originX - outer_radius, originY - outer_radius, null);
-        _canvas.drawBitmap(joystick_scaledbmp, posX, posY, null);
+        _canvas.drawBitmap(bg_bmp, originX - outer_radius, originY - outer_radius, null);
+        _canvas.drawBitmap(joystick_bmp, posX, posY, null);
     }
 
     @Override
     public boolean IsInit() {
-        return bg_scaledbmp!=null&&joystick_scaledbmp!=null;
+        return bg_bmp!=null&&joystick_bmp!=null;
     }
 
     @Override
