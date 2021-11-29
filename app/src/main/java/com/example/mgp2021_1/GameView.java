@@ -3,6 +3,7 @@ package com.example.mgp2021_1;
 import android.content.Context;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Button;
 
 // Created by TanSiewLan2021
 // GameView is the SurfaceView

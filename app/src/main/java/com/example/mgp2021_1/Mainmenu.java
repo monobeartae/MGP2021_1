@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.content.Intent;
-
+import android.window.SplashScreen;
 
 
 public class Mainmenu extends Activity implements OnClickListener, StateBase {  //Using StateBase class
@@ -62,18 +62,13 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
             StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
 
         }
-
         else if (v == btn_exit)
         {
-            intent.setClass(this, Mainmenu.class);
+            intent.setClass(this, Splashpage.class);
         }
-
-        if (v == btn_optionsmenu)
+        else if (v == btn_optionsmenu)
         {
-            // intent --> to set to another class which another page or screen that we are launching.
             intent.setClass(this, OptionsMenu.class);
-            StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
-
         }
         startActivity(intent);
 
