@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.view.SurfaceView;
 
 import com.example.mgp2021_1.Entities.RenderBackground;
+import com.example.mgp2021_1.Entities.RenderTextEntity;
 import com.example.mgp2021_1.Entities.Ship;
 
 // Created by TanSiewLan2021
@@ -20,6 +21,7 @@ public class MainGameSceneState implements StateBase {
     public void OnEnter(SurfaceView _view)
     {
         RenderBackground.Create();
+        RenderTextEntity.Create();
         Ship.Create();
         // Example to include another Renderview for Pause Button
     }
