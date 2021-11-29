@@ -10,6 +10,10 @@ import android.view.SurfaceView;
 import com.example.mgp2021_1.EntityManager;
 import com.example.mgp2021_1.LayerConstants;
 import com.example.mgp2021_1.R;
+import com.example.mgp2021_1.ResourceManager;
+
+import java.util.Random;
+import java.util.ResourceBundle;
 
 public class Ship implements EntityBase {
     private boolean isDone = false;
@@ -33,12 +37,20 @@ public class Ship implements EntityBase {
 
     @Override
     public void Init(SurfaceView _view) {
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ship2_1);
+        bmp = ResourceManager.Instance.GetBitmap(R.drawable.ship2_1);
+
         //Find the surfaceview size or screensize
         metrics = _view.getResources().getDisplayMetrics();
         ScreenHeight = metrics.heightPixels / 5;
         ScreenWidth = metrics.widthPixels / 5;
         scaledbmp = Bitmap.createScaledBitmap(bmp, ScreenWidth, ScreenHeight, true);
+
+        // CODE EXAMPLE FOR RANDOM (leave here first for ref):
+        Random ranGen = new Random();
+        //e.g.
+        //xPos = ranGen.nextFloat() * _view.getWidth();
+        //yPos = ranGen.nextFloat() * _view.getHeight();
+
     }
 
     @Override

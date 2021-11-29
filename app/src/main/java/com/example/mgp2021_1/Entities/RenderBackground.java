@@ -9,6 +9,7 @@ import android.view.SurfaceView;
 import com.example.mgp2021_1.EntityManager;
 import com.example.mgp2021_1.LayerConstants;
 import com.example.mgp2021_1.R;
+import com.example.mgp2021_1.ResourceManager;
 
 public class RenderBackground implements EntityBase {
     private boolean isDone=false;
@@ -30,7 +31,8 @@ public class RenderBackground implements EntityBase {
 
     @Override
     public void Init(SurfaceView _view) {
-        bmp= BitmapFactory.decodeResource(_view.getResources(), R.drawable.gamescene);
+        bmp = ResourceManager.Instance.GetBitmap(R.drawable.gamescene);
+
         //Find the surfaceview size or screensize
         DisplayMetrics metrics=_view.getResources().getDisplayMetrics();
         ScreenHeight=metrics.heightPixels;
