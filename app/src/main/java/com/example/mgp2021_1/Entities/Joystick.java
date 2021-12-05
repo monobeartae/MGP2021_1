@@ -14,6 +14,8 @@ import com.example.mgp2021_1.TouchManager;
 
 public class Joystick implements EntityBase {
 
+    public static Joystick Instance;
+
     private boolean isDone=false;
 
     private float originX, originY;
@@ -21,7 +23,7 @@ public class Joystick implements EntityBase {
 
     private int inner_radius=50;
     private int outer_radius=100;
-    private float max_d=50;
+    private float max_d=75;
 
     private boolean isHeld=false;
 
@@ -122,7 +124,43 @@ public class Joystick implements EntityBase {
     public static Joystick Create(){
         Joystick result=new Joystick();
         EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
+        Instance = result;
         return result;
+    }
+
+    public float GetDirX()
+    {
+
+        if (!isHeld)
+            return 0.0f;
+
+        float length = GetDisplacement();
+        if (length == 0.0f)
+            return 0.0f;
+
+        float disX = posX - originX;
+        return (float)(disX / length);
+    }
+
+    public float GetDirY()
+    {
+        if (!isHeld)
+            return 0.0f;
+
+        float length = GetDisplacement();
+        if (length == 0.0f)
+            return 0.0f;
+
+        float disY = posY - originY;
+        return (float)(disY / length);
+    }
+
+    private float GetDisplacement()
+    {
+        float disX = posX - originX;
+        float disY = posY - originY;
+        float disSqred = disX * disX + disY * disY;
+        return (float)Math.sqrt(disX * disX + disY * disY);
     }
 
 }

@@ -20,12 +20,14 @@ import java.util.ResourceBundle;
 
 public class Ship implements EntityBase {
     private boolean isDone = false;
-    private Bitmap bmp = null, scaledbmp = null;
+    private Bitmap bmp = null;
     int ScreenWidth, ScreenHeight;
     private float xPos, yPos, offset;
     private SurfaceView view = null;
     Matrix tfx = new Matrix();
     DisplayMetrics metrics;
+
+    private float playerSpeed = 50.0f;
 
     //check if anything to do with entity (use for pause)
     @Override
@@ -44,42 +46,38 @@ public class Ship implements EntityBase {
 
         //Find the surfaceview size or screensize
         metrics = _view.getResources().getDisplayMetrics();
-        ScreenHeight = metrics.heightPixels / 5;
-        ScreenWidth = metrics.widthPixels / 5;
-        scaledbmp = Bitmap.createScaledBitmap(bmp, ScreenWidth, ScreenHeight, true);
+        ScreenHeight = metrics.heightPixels;
+        ScreenWidth = metrics.widthPixels;
+        bmp = Bitmap.createScaledBitmap(bmp, ScreenWidth / 5, ScreenHeight / 5, true);
 
         // CODE EXAMPLE FOR RANDOM (leave here first for ref):
-        Random ranGen = new Random();
+        //Random ranGen = new Random();
         //e.g. of things thatt can be done:
         // if wan spawn ship in random pos
         //xPos = ranGen.nextFloat() * _view.getWidth();
         //yPos = ranGen.nextFloat() * _view.getHeight();
 
+
+        xPos = ScreenWidth / 2 - (ScreenWidth / 10);
+        yPos = ScreenHeight / 2 - (ScreenHeight / 10);
     }
 
     @Override
     public void Update(float _dt) {
-        tfx.preRotate(20 * _dt,metrics.widthPixels / 10,metrics.heightPixels / 10);
-        tfx.postTranslate(10*_dt,10*_dt);
+        //tfx.preRotate(20 * _dt,metrics.widthPixels / 10,metrics.heightPixels / 10);
+        //tfx.postTranslate(10*_dt,10*_dt);
+
+        xPos += Joystick.Instance.GetDirX() * _dt * playerSpeed;
+        yPos += Joystick.Instance.GetDirY() * _dt * playerSpeed;
 
         // SetIsDone(true); when end game?
-        // Collision check example
-        if (TouchManager.Instance.IsDown()) {
 
-            float imgRadius = bmp.getHeight() * 0.5f;
-            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(),
-                    0.0f, xPos, yPos, imgRadius)) {
-                System.out.println("Collided");
-                SetIsDone(true);
-            }
-        }
     }
 
     @Override
     public void Render(Canvas _canvas) {
         _canvas.drawBitmap(bmp, xPos, yPos, null); //1st image
-        //_canvas.drawBitmap(scaledbmp, xPos + ScreenWidth, yPos, null); //2nd image (to show its continuous)
-        //_canvas.drawBitmap(scaledbmp, tfx, null);
+
     }
 
     @Override

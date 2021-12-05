@@ -27,7 +27,9 @@ public class MainGameSceneState implements StateBase {
     {
         RenderBackground.Create();
         RenderTextEntity.Create();
+        Ship.Create();
         Joystick.Create();
+
         pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 55, 55);
 
 
