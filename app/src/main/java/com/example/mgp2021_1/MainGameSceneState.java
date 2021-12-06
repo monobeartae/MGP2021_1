@@ -8,6 +8,7 @@ import com.example.mgp2021_1.Entities.Joystick;
 import com.example.mgp2021_1.Entities.RenderBackground;
 import com.example.mgp2021_1.Entities.RenderTextEntity;
 import com.example.mgp2021_1.Entities.Ship;
+import com.example.mgp2021_1.Entities.Smurf;
 
 // Created by TanSiewLan2021
 
@@ -29,6 +30,7 @@ public class MainGameSceneState implements StateBase {
         RenderTextEntity.Create();
         Ship.Create();
         Joystick.Create();
+        Smurf.Create();
 
         pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 55, 55);
 

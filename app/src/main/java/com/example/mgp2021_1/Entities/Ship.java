@@ -48,7 +48,7 @@ public class Ship implements EntityBase {
         metrics = _view.getResources().getDisplayMetrics();
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
-        bmp = Bitmap.createScaledBitmap(bmp, ScreenWidth / 5, ScreenHeight / 5, true);
+        bmp = Bitmap.createScaledBitmap(bmp, ScreenWidth / 7, ScreenHeight / 7, true);
 
         // CODE EXAMPLE FOR RANDOM (leave here first for ref):
         //Random ranGen = new Random();
@@ -58,8 +58,8 @@ public class Ship implements EntityBase {
         //yPos = ranGen.nextFloat() * _view.getHeight();
 
 
-        xPos = ScreenWidth / 2 - (ScreenWidth / 10);
-        yPos = ScreenHeight / 2 - (ScreenHeight / 10);
+        xPos = ScreenWidth / 2 - (ScreenWidth / 14);
+        yPos = ScreenHeight / 2 - (ScreenHeight / 14);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.mgp2021_1;
 
-// Created by TanSiewLan2021
-
+// Created by TanSiewLan2020
 // Need a delicated thread to run Surfaceview's update method
 
 import android.graphics.Canvas;
@@ -22,11 +21,11 @@ public class UpdateThread extends Thread {
         view = _view;
         holder = _view.getHolder();
 
-		// Manage your managers if there is any
+		  // Manage your managers if there is any
         StateManager.Instance.Init(_view);
         EntityManager.Instance.Init(_view);
-        ResourceManager.Instance.Init(_view);
         GameSystem.Instance.Init(_view);
+        ResourceManager.Instance.Init(_view);
     }
 
     public boolean IsRunning()
@@ -55,6 +54,8 @@ public class UpdateThread extends Thread {
         long prevTime = System.nanoTime();
 
         StateManager.Instance.Start("MainGame");  // To edit to whichever state to start with.
+
+        // Change Splashpage to be a state -->Then this field here will be "Splashstate"
 
         // This is the game loop
         while (isRunning && StateManager.Instance.GetCurrentState() != "INVALID")

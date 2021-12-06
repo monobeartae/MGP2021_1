@@ -92,7 +92,7 @@ public class StateManager {
             overlayState.Render(_canvas);
     }
 
-    String GetCurrentState()
+    public String GetCurrentState()
     {
         if (currState == null)
             return "INVALID";
