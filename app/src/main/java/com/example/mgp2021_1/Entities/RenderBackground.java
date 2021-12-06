@@ -19,6 +19,8 @@ public class RenderBackground implements EntityBase {
     int ScreenWidth,ScreenHeight;
     private float xPos,yPos, offset;
     private SurfaceView view=null;
+
+    static int bg_id;
     //check if anything to do with entity (use for pause)
     @Override
     public boolean IsDone() {
@@ -33,7 +35,7 @@ public class RenderBackground implements EntityBase {
 
     @Override
     public void Init(SurfaceView _view) {
-        bmp = ResourceManager.Instance.GetBitmap(R.drawable.testmap);
+        bmp = ResourceManager.Instance.GetBitmap(bg_id);
         System.out.println("RenderBackground bmp created");
         //Find the surfaceview size or screensize
         DisplayMetrics metrics=_view.getResources().getDisplayMetrics();
@@ -86,9 +88,10 @@ public class RenderBackground implements EntityBase {
         return ENTITY_TYPE.ENT_DEFAULT;
     }
 
-    public static RenderBackground Create(){
+    public static RenderBackground Create(int _id){
         RenderBackground result=new RenderBackground();
         EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
+        bg_id = _id;
         return result;
     }
 }

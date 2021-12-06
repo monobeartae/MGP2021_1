@@ -27,7 +27,7 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
-        RenderBackground.Create();
+        RenderBackground.Create(R.drawable.testmap);
         RenderTextEntity.Create();
         Joystick.Create();
         Player.Create();
