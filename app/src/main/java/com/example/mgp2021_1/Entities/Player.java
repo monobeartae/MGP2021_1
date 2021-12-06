@@ -20,7 +20,7 @@ import com.example.mgp2021_1.TouchManager;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-public class Player implements EntityBase {
+public class Player implements EntityBase, Collidable {
     private boolean isDone = false;
 
     //private Bitmap bmp = null;
@@ -110,7 +110,8 @@ public class Player implements EntityBase {
                 player_sprite = player_up;
         }
 
-        player_sprite.Update(_dt);
+        if (Joystick.Instance.GetDisplacement() != 0)
+            player_sprite.Update(_dt);
 
     }
 
@@ -132,7 +133,7 @@ public class Player implements EntityBase {
 
     @Override
     public int GetRenderLayer() {
-        return LayerConstants.BACKGROUND_LAYER;
+        return LayerConstants.PLAYER_LAYER;
     }
 
     @Override
@@ -150,4 +151,33 @@ public class Player implements EntityBase {
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);
         return result;
     }
+
+    @Override
+    public float GetPosX()
+    {
+        return xPos;
+    }
+
+    @Override
+    public float GetPosY()
+    {
+        return yPos;
+    }
+
+    @Override
+    public float GetRadius()
+    {
+        return bmp_width;
+    }
+
+    @Override
+    public String GetType() {
+        return "Player";
+    }
+
+    @Override
+    public void OnHit(Collidable _other) {
+
+    }
+
 }

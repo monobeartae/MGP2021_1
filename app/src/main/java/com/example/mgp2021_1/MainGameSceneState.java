@@ -3,6 +3,7 @@ package com.example.mgp2021_1;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.Entities.AreaMarker;
 import com.example.mgp2021_1.Entities.CustomButton;
 import com.example.mgp2021_1.Entities.Joystick;
 import com.example.mgp2021_1.Entities.Player;
@@ -10,6 +11,8 @@ import com.example.mgp2021_1.Entities.RenderBackground;
 import com.example.mgp2021_1.Entities.RenderTextEntity;
 import com.example.mgp2021_1.Entities.Ship;
 import com.example.mgp2021_1.Entities.Smurf;
+
+import java.util.Vector;
 
 // Created by TanSiewLan2021
 
@@ -19,6 +22,8 @@ public class MainGameSceneState implements StateBase {
 
     CustomButton pauseButton;
 
+    Player player;
+
     @Override
     public String GetName() {
         return "MainGame";
@@ -27,15 +32,31 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
-        RenderBackground.Create(R.drawable.testmap);
+        // Create game scene bg
+        RenderBackground bg = RenderBackground.Create();
+        bg.SetBMP(R.drawable.testmap);
+        bg.SetBMPScale(5760, 3240);
+
+        // Create Entities
         RenderTextEntity.Create();
         Joystick.Create();
-        Player.Create();
+        player = Player.Create();
 
-        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 55, 55);
+        float areaPos[] = {
+                1000, 1000,
+                50, 50,
+                500, 700,
+                3500, 1240
+        };
 
+        for (int i = 0; i < areaPos.length; i += 2)
+        {
+            AreaMarker temp = AreaMarker.Create();
+            temp.SetPos(areaPos[i], areaPos[i + 1]);
+        }
 
-        // Example to include another Renderview for Pause Button
+        // Create Buttons
+        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 55, 55, true);
     }
 
     @Override
@@ -54,13 +75,12 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void Update(float _dt) {
 
+        // All Entity Updates
         EntityManager.Instance.Update(_dt);
 
-
-        //if (TouchManager.Instance.IsClicked())
+        // Check for Pause Button Click
         if (pauseButton.CheckButtonClick())
         {
-
             System.out.println("Game Paused");
             StateManager.Instance.SetOverlayState("Pause");
         }

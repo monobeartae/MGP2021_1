@@ -84,14 +84,16 @@ public class CustomButton implements EntityBase {
         return ENTITY_TYPE.ENT_DEFAULT;
     }
 
-    public static CustomButton Create(int _id, int scalex, int scaley, int _posx, int _posy){
+    public static CustomButton Create(int _id, int scalex, int scaley,
+                                      int _posx, int _posy, boolean addtoEM){
         CustomButton result=new CustomButton();
         result.bmp_id = _id;
         result.scaleX = scalex;
         result.scaleY = scaley;
         result.posX = _posx;
         result.posY = _posy;
-        EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
+        if (addtoEM)
+            EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
         return result;
     }
 }

@@ -155,7 +155,7 @@ public class Joystick implements EntityBase {
         return (float)(disY / length);
     }
 
-    private float GetDisplacement()
+    public float GetDisplacement()
     {
         float disX = posX - originX;
         float disY = posY - originY;

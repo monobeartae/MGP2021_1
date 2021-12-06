@@ -15,12 +15,12 @@ import com.example.mgp2021_1.ResourceManager;
 public class RenderBackground implements EntityBase {
     private boolean isDone=false;
     private Bitmap bmp=null;
-    private int bmp_width, bmp_height;
+    private int bmp_width, bmp_height = 1;
     int ScreenWidth,ScreenHeight;
     private float xPos,yPos, offset;
     private SurfaceView view=null;
 
-    static int bg_id;
+    private int bg_id;
     //check if anything to do with entity (use for pause)
     @Override
     public boolean IsDone() {
@@ -42,13 +42,14 @@ public class RenderBackground implements EntityBase {
         ScreenHeight=metrics.heightPixels;
         ScreenWidth=metrics.widthPixels;
 
-        bmp_width = 5760;
-        bmp_height = 3240;
+       // bmp_width = 5760;
+        //bmp_height = 3240;
         bmp=Bitmap.createScaledBitmap(bmp,bmp_width,bmp_height,true);
 
-        xPos = 5760 / 2;
-        yPos = 3240 / 2;
+        xPos = bmp_width / 2;
+        yPos = bmp_height / 2;
     }
+
 
     @Override
     public void Update(float _dt) {
@@ -88,10 +89,20 @@ public class RenderBackground implements EntityBase {
         return ENTITY_TYPE.ENT_DEFAULT;
     }
 
-    public static RenderBackground Create(int _id){
+    public static RenderBackground Create(){
         RenderBackground result=new RenderBackground();
         EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
-        bg_id = _id;
         return result;
+    }
+
+    public void SetBMP(int _id)
+    {
+        bg_id = _id;
+    }
+
+    public void SetBMPScale(int x, int y)
+    {
+        bmp_width = x;
+        bmp_height = y;
     }
 }

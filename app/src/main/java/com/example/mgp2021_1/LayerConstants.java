@@ -7,8 +7,10 @@ package com.example.mgp2021_1;
 public class LayerConstants {
 
     public final static int BACKGROUND_LAYER = 0;
-    public final static int RENDERTEXT_LAYER = 1;
-    public final static int STAR_LAYER = 50;
-    public final static int GAMEOBJECTS_LAYER = 100;  // Example
+    public final static int GAMEOBJECTS_LAYER = 50;  // Example
+    public final static int PLAYER_LAYER = 75;
+    public final static int RENDERTEXT_LAYER = 100;
+    public final static int STAR_LAYER = 101;
+
     public final static int UI_LAYER = 1000;
 }
