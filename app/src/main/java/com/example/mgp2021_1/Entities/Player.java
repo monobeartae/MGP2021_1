@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class Player implements EntityBase {
     private boolean isDone = false;
 
-    private Bitmap bmp = null;
+    //private Bitmap bmp = null;
     private int bmp_width, bmp_height;
     private Sprite player_sprite = null;
     private Sprite player_up = null;
@@ -54,22 +54,29 @@ public class Player implements EntityBase {
 
     @Override
     public void Init(SurfaceView _view) {
-        bmp = ResourceManager.Instance.GetBitmap(R.drawable.ship2_1);
+
 
         //Find the surfaceview size or screensize
         metrics = _view.getResources().getDisplayMetrics();
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
 
-        bmp_width = ScreenWidth / 7;
-        bmp_height = ScreenHeight / 7;
+        bmp_width = ScreenWidth / 12;
+        bmp_height = ScreenHeight / 6;
 
-        bmp = Bitmap.createScaledBitmap(bmp, bmp_width, bmp_height, true);
+        Bitmap up_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_up);
+        Bitmap down_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_down);
+        Bitmap left_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_left);
+        Bitmap right_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_right);
+        up_bmp = Bitmap.createScaledBitmap(up_bmp, bmp_width * 4, bmp_height, true);
+        down_bmp = Bitmap.createScaledBitmap(down_bmp, bmp_width * 4, bmp_height, true);
+        left_bmp = Bitmap.createScaledBitmap(left_bmp, bmp_width * 4, bmp_height, true);
+        right_bmp = Bitmap.createScaledBitmap(right_bmp, bmp_width * 4, bmp_height, true);
 
-        player_up = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.player_up),1,4, 4 );
-        player_down = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.player_down),1,4, 4 );
-        player_left = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.player_left),1,4, 4 );
-        player_right = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.player_right),1,4, 4 );
+        player_up = new Sprite(up_bmp,1,4, 2 );
+        player_down = new Sprite(down_bmp,1,4, 2 );
+        player_left = new Sprite(left_bmp,1,4, 2 );
+        player_right = new Sprite(right_bmp,1,4, 2 );
 
         player_sprite =  player_down;
 
@@ -110,8 +117,8 @@ public class Player implements EntityBase {
     @Override
     public void Render(Canvas _canvas) {
 
-        float screenPosX = (ScreenWidth / 2) + xPos - Camera.Instance.GetPosX() - (bmp_width / 2);
-        float screenPosY = (ScreenHeight / 2) + yPos - Camera.Instance.GetPosY() - (bmp_height / 2);
+        float screenPosX = (ScreenWidth / 2) + xPos - Camera.Instance.GetPosX();// - (bmp_width / 2);
+        float screenPosY = (ScreenHeight / 2) + yPos - Camera.Instance.GetPosY();// - (bmp_height / 2);
 
         //_canvas.drawBitmap(bmp, screenPosX, screenPosY, null); //1st image
         player_sprite.Render(_canvas, (int)screenPosX, (int)screenPosY);
@@ -120,7 +127,7 @@ public class Player implements EntityBase {
 
     @Override
     public boolean IsInit() {
-        return bmp != null;
+        return player_sprite != null;
     }
 
     @Override
