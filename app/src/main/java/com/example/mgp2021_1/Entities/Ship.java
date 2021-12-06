@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.Camera;
 import com.example.mgp2021_1.Collidable;
 import com.example.mgp2021_1.Collision;
 import com.example.mgp2021_1.EntityManager;
@@ -27,7 +28,8 @@ public class Ship implements EntityBase {
     Matrix tfx = new Matrix();
     DisplayMetrics metrics;
 
-    private float playerSpeed = 50.0f;
+    private float playerSpeed = 100.0f;
+    private int bmp_width, bmp_height;
 
     //check if anything to do with entity (use for pause)
     @Override
@@ -48,7 +50,11 @@ public class Ship implements EntityBase {
         metrics = _view.getResources().getDisplayMetrics();
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
-        bmp = Bitmap.createScaledBitmap(bmp, ScreenWidth / 7, ScreenHeight / 7, true);
+
+        bmp_width = ScreenWidth / 7;
+        bmp_height = ScreenHeight / 7;
+
+        bmp = Bitmap.createScaledBitmap(bmp, bmp_width, bmp_height, true);
 
         // CODE EXAMPLE FOR RANDOM (leave here first for ref):
         //Random ranGen = new Random();
@@ -58,8 +64,8 @@ public class Ship implements EntityBase {
         //yPos = ranGen.nextFloat() * _view.getHeight();
 
 
-        xPos = ScreenWidth / 2 - (ScreenWidth / 14);
-        yPos = ScreenHeight / 2 - (ScreenHeight / 14);
+        xPos = (5760 / 2) - (bmp_width / 2);
+        yPos = (3240 / 2) - (bmp_height / 2);
     }
 
     @Override
@@ -70,13 +76,18 @@ public class Ship implements EntityBase {
         xPos += Joystick.Instance.GetDirX() * _dt * playerSpeed;
         yPos += Joystick.Instance.GetDirY() * _dt * playerSpeed;
 
+        Camera.Instance.SetPos(xPos, yPos);
         // SetIsDone(true); when end game?
 
     }
 
     @Override
     public void Render(Canvas _canvas) {
-        _canvas.drawBitmap(bmp, xPos, yPos, null); //1st image
+
+        float screenPosX = (ScreenWidth / 2) + xPos - Camera.Instance.GetPosX() - (bmp_width / 2);
+        float screenPosY = (ScreenHeight / 2) + yPos - Camera.Instance.GetPosY() - (bmp_height / 2);
+
+        _canvas.drawBitmap(bmp, screenPosX, screenPosY, null); //1st image
 
     }
 

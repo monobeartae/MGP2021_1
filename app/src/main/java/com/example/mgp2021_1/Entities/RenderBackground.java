@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.Camera;
 import com.example.mgp2021_1.EntityManager;
 import com.example.mgp2021_1.LayerConstants;
 import com.example.mgp2021_1.R;
@@ -13,7 +14,8 @@ import com.example.mgp2021_1.ResourceManager;
 
 public class RenderBackground implements EntityBase {
     private boolean isDone=false;
-    private Bitmap bmp=null,scaledbmp=null;
+    private Bitmap bmp=null;
+    private int bmp_width, bmp_height;
     int ScreenWidth,ScreenHeight;
     private float xPos,yPos, offset;
     private SurfaceView view=null;
@@ -37,8 +39,13 @@ public class RenderBackground implements EntityBase {
         DisplayMetrics metrics=_view.getResources().getDisplayMetrics();
         ScreenHeight=metrics.heightPixels;
         ScreenWidth=metrics.widthPixels;
-        scaledbmp=Bitmap.createScaledBitmap(bmp,ScreenWidth,ScreenHeight,true);
 
+        bmp_width = 5760;
+        bmp_height = 3240;
+        bmp=Bitmap.createScaledBitmap(bmp,bmp_width,bmp_height,true);
+
+        xPos = 5760 / 2;
+        yPos = 3240 / 2;
     }
 
     @Override
@@ -52,8 +59,10 @@ public class RenderBackground implements EntityBase {
 
     @Override
     public void Render(Canvas _canvas) {
-        _canvas.drawBitmap(scaledbmp,xPos,yPos,null); //1st image
-        _canvas.drawBitmap(scaledbmp,xPos+ScreenWidth,yPos,null); //2nd image (to show its continuous)
+        float screenPosX = (ScreenWidth / 2) + xPos - Camera.Instance.GetPosX() - (bmp_width / 2);
+        float screenPosY = (ScreenHeight / 2) + yPos - Camera.Instance.GetPosY() - (bmp_height / 2);
+
+        _canvas.drawBitmap(bmp,screenPosX, screenPosY,null); //1st image
 //Matrix transform=new Matrix();
     }
 

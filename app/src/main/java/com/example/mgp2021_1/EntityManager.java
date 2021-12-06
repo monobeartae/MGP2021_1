@@ -121,6 +121,8 @@ public class EntityManager {
 
         for(int i = 0; i <entityList.size(); ++i)
         {
+//            _canvas.translate(entityList.get(i).GetPosX() - Camera.Instance.GetPosX(),
+//                    entityList.get(i).GetPosY() - Camera.Instance.GetPosY());
             entityList.get(i).Render(_canvas);
         }
     }
