@@ -18,6 +18,7 @@ public class StateManager {
     private StateBase currState = null;
     private StateBase nextState = null;
     private StateBase overlayState = null;
+    private StateBase secondaryState = null;
 
     private SurfaceView view = null;
 
@@ -57,11 +58,27 @@ public class StateManager {
         }
     }
 
+    void SetSecondaryState(String _secondaryState)
+    {
+        if (secondaryState == null) {
+            secondaryState = stateMap.get(_secondaryState);
+            secondaryState.OnEnter(view);
+        }
+    }
+
     void RemoveOverlayState()
     {
         if (overlayState != null) {
             overlayState.OnExit();
             overlayState = null;
+        }
+    }
+
+    void RemoveSecondaryState()
+    {
+        if (secondaryState != null) {
+            secondaryState.OnExit();
+            secondaryState = null;
         }
     }
 
@@ -78,18 +95,26 @@ public class StateManager {
         if (currState == null)
             return;
 
-        if (overlayState == null)
-            currState.Update(_dt);
-        else
+        if (overlayState != null)
             overlayState.Update(_dt);
+        else if (secondaryState != null)
+            secondaryState.Update(_dt);
+        else
+            currState.Update(_dt);
     }
 
     void Render(Canvas _canvas)
     {
 
-        currState.Render(_canvas);
+
+        if (secondaryState != null)
+            secondaryState.Render(_canvas);
+        else
+            currState.Render(_canvas);
+
         if (overlayState != null)
             overlayState.Render(_canvas);
+
     }
 
     public String GetCurrentState()
