@@ -36,9 +36,12 @@ public class TouchManager {
 
         boolean isClick = prev_status == TouchState.DOWN && status == TouchState.NONE;
 
-        prev_status = status;
-
         return isClick;
+    }
+
+    public void UpdateStatus()
+    {
+        prev_status = status;
     }
 
     public int GetPosX(){

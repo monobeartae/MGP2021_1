@@ -1,7 +1,6 @@
 package com.example.mgp2021_1.Entities;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
@@ -9,15 +8,15 @@ import android.view.SurfaceView;
 import com.example.mgp2021_1.Camera;
 import com.example.mgp2021_1.EntityManager;
 import com.example.mgp2021_1.LayerConstants;
-import com.example.mgp2021_1.R;
 import com.example.mgp2021_1.ResourceManager;
 
-public class RenderBackground implements EntityBase {
+public class UIBackground implements EntityBase {
+
     private boolean isDone=false;
     private Bitmap bmp=null;
     private int bmp_width, bmp_height = 1;
     int ScreenWidth,ScreenHeight;
-    private float xPos,yPos, offset;
+    private float xPos,yPos=0;
     private SurfaceView view=null;
 
     private int bg_id;
@@ -41,12 +40,7 @@ public class RenderBackground implements EntityBase {
         ScreenHeight=metrics.heightPixels;
         ScreenWidth=metrics.widthPixels;
 
-       // bmp_width = 5760;
-        //bmp_height = 3240;
         bmp=Bitmap.createScaledBitmap(bmp,bmp_width,bmp_height,true);
-
-        xPos = bmp_width / 2;
-        yPos = bmp_height / 2;
     }
 
 
@@ -62,11 +56,8 @@ public class RenderBackground implements EntityBase {
     @Override
     public void Render(Canvas _canvas) {
 
-        float screenPosX = (ScreenWidth / 2) + xPos - Camera.Instance.GetPosX() - (bmp_width / 2);
-        float screenPosY = (ScreenHeight / 2) + yPos - Camera.Instance.GetPosY() - (bmp_height / 2);
+        _canvas.drawBitmap(bmp, xPos - (bmp_width / 2), yPos - (bmp_height / 2), null); //1st image
 
-
-        _canvas.drawBitmap(bmp, screenPosX, screenPosY, null); //1st image
     }
 
     @Override
@@ -76,7 +67,7 @@ public class RenderBackground implements EntityBase {
 
     @Override
     public int GetRenderLayer() {
-        return LayerConstants.BACKGROUND_LAYER;
+        return LayerConstants.UIBG_LAYER;
     }
 
     @Override
@@ -89,8 +80,8 @@ public class RenderBackground implements EntityBase {
         return ENTITY_TYPE.ENT_DEFAULT;
     }
 
-    public static RenderBackground Create(){
-        RenderBackground result=new RenderBackground();
+    public static UIBackground Create(){
+        UIBackground result=new UIBackground();
         EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
         return result;
     }
@@ -100,9 +91,15 @@ public class RenderBackground implements EntityBase {
         bg_id = _id;
     }
 
-    public void SetBMPScale(int x, int y)
+    public void SetScale(int x, int y)
     {
         bmp_width = x;
         bmp_height = y;
+    }
+
+    public void SetPos(int x, int y)
+    {
+        xPos = x;
+        yPos = y;
     }
 }

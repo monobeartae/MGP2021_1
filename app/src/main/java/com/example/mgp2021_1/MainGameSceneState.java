@@ -11,18 +11,29 @@ import com.example.mgp2021_1.Entities.RenderBackground;
 import com.example.mgp2021_1.Entities.RenderTextEntity;
 import com.example.mgp2021_1.Entities.Ship;
 import com.example.mgp2021_1.Entities.Smurf;
+import com.example.mgp2021_1.Entities.UIBackground;
 
 import java.util.Vector;
 
 // Created by TanSiewLan2021
 
 public class MainGameSceneState implements StateBase {
+
     private float timer = 0.0f;
 
+    // FPS
+    int frameCount;
+    long lastTime = 0;
+    long lastFPSTime = 0;
+    float fps;
 
-    CustomButton pauseButton;
+    // UI Entities
+    CustomButton pauseButton = null;
+    RenderTextEntity FPS = null;
 
-    Player player;
+
+    // GameObject Entities
+    Player player = null;
 
     @Override
     public String GetName() {
@@ -32,14 +43,19 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
-        // Create game scene bg
+        // Create and Init game scene bg
         RenderBackground bg = RenderBackground.Create();
         bg.SetBMP(R.drawable.testmap);
         bg.SetBMPScale(5760, 3240);
 
-        // Create Entities
-        RenderTextEntity.Create();
+        // Create and Init UI Entities
+        FPS = RenderTextEntity.Create();
+        FPS.SetPos(30, 80);
+        FPS.SetColor(0,0,0);
+
         Joystick.Create();
+
+        // Create and init Game related entities
         player = Player.Create();
 
         float areaPos[] = {
@@ -74,6 +90,18 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void Update(float _dt) {
+
+        // FPS
+        frameCount++;
+        long currentTime = System.currentTimeMillis();
+        lastTime = currentTime;
+        if(currentTime - lastFPSTime > 1000)
+        {
+            fps = (frameCount * 1000.f) / (currentTime - lastFPSTime);
+            lastFPSTime = currentTime;
+            frameCount = 0;
+        }
+        FPS.SetText("FPS:" + fps);
 
         // All Entity Updates
         EntityManager.Instance.Update(_dt);

@@ -69,6 +69,7 @@ public class UpdateThread extends Thread {
             // Update
             StateManager.Instance.Update(deltaTime);
             Camera.Instance.Update(deltaTime);
+            TouchManager.Instance.UpdateStatus();
 
             // Render
             Canvas canvas = holder.lockCanvas(null);

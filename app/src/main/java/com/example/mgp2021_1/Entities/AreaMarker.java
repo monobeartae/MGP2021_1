@@ -23,20 +23,24 @@ public class AreaMarker implements EntityBase, Collidable {
 
     private boolean isDone = false;
 
+    // Image BMP
     private Bitmap bmp = null;
     private int bmp_width, bmp_height;
 
+    // Utility Vars
     int ScreenWidth, ScreenHeight;
-    private float xPos, yPos;
-
     private SurfaceView view = null;
     Matrix tfx = new Matrix();
     DisplayMetrics metrics;
 
-
+    // AreaMarker Vars
+    private float xPos, yPos;
+    private float pollution;
     private boolean isCollided = false;
 
+    // UI Entities
     CustomButton cleanButton = null;
+    UIBackground areaDetailMenu = null;
 
     //check if anything to do with entity (use for pause)
     @Override
@@ -51,6 +55,7 @@ public class AreaMarker implements EntityBase, Collidable {
 
     @Override
     public void Init(SurfaceView _view) {
+        // Create and Init BMP
         bmp = ResourceManager.Instance.GetBitmap(R.drawable.redflag);
 
         //Find the surfaceview size or screensize
@@ -63,9 +68,16 @@ public class AreaMarker implements EntityBase, Collidable {
 
         bmp = Bitmap.createScaledBitmap(bmp, bmp_width, bmp_height, true);
 
-        cleanButton = CustomButton.Create(R.drawable.cleanbutton, 316, 139,
-                ScreenWidth - 400, ScreenHeight - 200);
+        // Create and Init UI
+        cleanButton = CustomButton.Create(R.drawable.clean_btn, 414, 102,
+                ScreenWidth - 320, ScreenHeight - 300);
         cleanButton.Init(_view);
+
+        areaDetailMenu = new UIBackground();
+        areaDetailMenu.SetBMP(R.drawable.ui_frame1);
+        areaDetailMenu.SetScale(600,700);
+        areaDetailMenu.SetPos(1650,650);
+        areaDetailMenu.Init(_view);
     }
 
     @Override
@@ -91,7 +103,10 @@ public class AreaMarker implements EntityBase, Collidable {
 
         _canvas.drawBitmap(bmp, screenPosX, screenPosY, null); //1st image
 
-
+        if (isCollided)
+        {
+            areaDetailMenu.Render(_canvas);
+        }
     }
 
     @Override

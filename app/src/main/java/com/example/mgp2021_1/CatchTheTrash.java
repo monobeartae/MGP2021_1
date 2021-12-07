@@ -65,6 +65,5 @@ public class CatchTheTrash implements StateBase
 
         Camera.Instance.SetPos(960,540);
 
-
     }
 }

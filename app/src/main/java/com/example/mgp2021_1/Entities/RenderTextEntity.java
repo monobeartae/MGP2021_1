@@ -15,16 +15,15 @@ public class RenderTextEntity implements EntityBase {
         // Paint object
         Paint paint = new Paint();
         private int red = 0, green = 0, blue = 0;
+        private float posX, posY = 0;
+        private int text_size = 70;
 
         private boolean isDone = false;
         private boolean isInit = false;
 
-        int frameCount;
-        long lastTime = 0;
-        long lastFPSTime = 0;
-        float fps;
-
         Typeface myfont;
+
+        private String text;
 
         @Override
         public boolean IsDone() {
@@ -49,22 +48,6 @@ public class RenderTextEntity implements EntityBase {
         @Override
         public void Update(float _dt) {
 
-            // get actual fps
-
-            frameCount++;
-
-            long currentTime = System.currentTimeMillis();
-
-            lastTime = currentTime;
-
-            if(currentTime - lastFPSTime > 1000)
-            {
-                fps = (frameCount * 1000.f) / (currentTime - lastFPSTime);
-                lastFPSTime = currentTime;
-                frameCount = 0;
-            }
-
-
         }
 
         @Override
@@ -72,11 +55,11 @@ public class RenderTextEntity implements EntityBase {
         {
 
             Paint paint = new Paint();
-            paint.setARGB(255, 0,0,0);
+            paint.setARGB(255, red,green,blue);
             //paint.setStrokeWidth(200);
             paint.setTypeface(myfont);
-            paint.setTextSize(70);
-            _canvas.drawText("FPS: " + fps, 30, 80, paint);
+            paint.setTextSize(text_size);
+            _canvas.drawText(text, posX, posY, paint);
 
 
         }
@@ -104,6 +87,29 @@ public class RenderTextEntity implements EntityBase {
             RenderTextEntity result = new RenderTextEntity();
             EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_TEXT);
             return result;
+        }
+
+        public void SetText(String _text)
+        {
+            text = _text;
+        }
+
+        public void SetColor(int r, int g, int b)
+        {
+            red = r;
+            green = g;
+            blue = b;
+        }
+
+        public void SetPos(int _x, int _y)
+        {
+            posX = _x;
+            posY = _y;
+        }
+
+        public void SetTextSize(int _size)
+        {
+            text_size = _size;
         }
 
 }

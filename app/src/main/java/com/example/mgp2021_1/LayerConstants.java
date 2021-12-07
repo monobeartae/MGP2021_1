@@ -12,5 +12,6 @@ public class LayerConstants {
     public final static int RENDERTEXT_LAYER = 100;
     public final static int STAR_LAYER = 101;
 
+    public final static int UIBG_LAYER = 900;
     public final static int UI_LAYER = 1000;
 }
