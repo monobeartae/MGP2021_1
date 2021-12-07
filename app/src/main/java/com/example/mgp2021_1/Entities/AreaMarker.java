@@ -13,6 +13,7 @@ import com.example.mgp2021_1.EntityManager;
 import com.example.mgp2021_1.LayerConstants;
 import com.example.mgp2021_1.R;
 import com.example.mgp2021_1.ResourceManager;
+import com.example.mgp2021_1.StateManager;
 import com.example.mgp2021_1.TouchManager;
 
 import java.util.Random;
@@ -74,6 +75,7 @@ public class AreaMarker implements EntityBase, Collidable {
             if (cleanButton.CheckButtonClick())
             {
                 System.out.println("Clean Button Clicked");
+                StateManager.Instance.SetSecondaryState("Minigame");
             }
         }
 

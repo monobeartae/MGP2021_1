@@ -38,7 +38,7 @@ public class StateManager {
         stateMap.put(_newState.GetName(), _newState);
     }
 
-    void ChangeState(String _nextState)
+    public void ChangeState(String _nextState)
     {
         // Try to assign the next state
         nextState = stateMap.get(_nextState);
@@ -50,7 +50,7 @@ public class StateManager {
         // Extra to add if possible : throw some warning if next state function fails
     }
 
-    void SetOverlayState(String _overlayState)
+    public void SetOverlayState(String _overlayState)
     {
         if (overlayState == null) {
             overlayState = stateMap.get(_overlayState);
@@ -58,11 +58,12 @@ public class StateManager {
         }
     }
 
-    void SetSecondaryState(String _secondaryState)
+    public void SetSecondaryState(String _secondaryState)
     {
         if (secondaryState == null) {
             secondaryState = stateMap.get(_secondaryState);
             secondaryState.OnEnter(view);
+
         }
     }
 
@@ -74,7 +75,7 @@ public class StateManager {
         }
     }
 
-    void RemoveSecondaryState()
+    public void RemoveSecondaryState()
     {
         if (secondaryState != null) {
             secondaryState.OnExit();

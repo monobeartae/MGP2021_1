@@ -30,6 +30,7 @@ public class GameSystem {
         StateManager.Instance.AddState(new PauseState());
         StateManager.Instance.AddState(new HelpMenu());
         StateManager.Instance.AddState(new OptionsMenu());
+        StateManager.Instance.AddState(new CatchTheTrash());
     }
 
     public void SetIsPaused(boolean _newIsPaused)
