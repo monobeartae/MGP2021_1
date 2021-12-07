@@ -63,16 +63,7 @@ public class CatchTheTrash implements StateBase
         // All Entity Updates
         EntityManager.Instance.Update(_dt);
 
-//        if(TouchManager.Instance.IsDown())
-//        {
-//            StateManager.Instance.RemoveSecondaryState();
-//        }
-        // Check for Pause Button Click
-        //if (pauseButton.CheckButtonClick())
-        //{
-       //    System.out.println("Game Paused");
-        //    StateManager.Instance.SetOverlayState("Pause");
-       // }
+        Camera.Instance.SetPos(960,540);
 
 
     }

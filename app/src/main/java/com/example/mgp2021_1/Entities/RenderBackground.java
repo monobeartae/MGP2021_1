@@ -62,11 +62,18 @@ public class RenderBackground implements EntityBase {
 
     @Override
     public void Render(Canvas _canvas) {
+
         float screenPosX = (ScreenWidth / 2) + xPos - Camera.Instance.GetPosX() - (bmp_width / 2);
         float screenPosY = (ScreenHeight / 2) + yPos - Camera.Instance.GetPosY() - (bmp_height / 2);
 
-        _canvas.drawBitmap(bmp,screenPosX, screenPosY,null); //1st image
+        //screenPosX = xPos - (bmp_width / 2);
+        //screenPosY = yPos - (bmp_height / 2);
+        _canvas.drawBitmap(bmp, screenPosX, screenPosY, null); //1st image
+
 //Matrix transform=new Matrix();
+
+        System.out.println("Rendering BG");
+        System.out.println("Screen Pos:" + screenPosX + " " + screenPosY);
     }
 
     @Override
