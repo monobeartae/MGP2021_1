@@ -14,13 +14,35 @@ import com.example.mgp2021_1.TouchManager;
 
 public class CustomButton implements EntityBase {
 
-    private boolean isDone=false;
+    private boolean isDone = false;
 
     private int bmp_id;
     private int posX, posY;
     private int scaleX, scaleY;
 
-    private Bitmap bmp=null;
+    private Bitmap bmp = null;
+
+
+    private boolean hideButton = false;
+
+
+    public CustomButton()
+    {
+
+    }
+
+    public CustomButton(int _id, int scalex, int scaley,
+                        int _posx, int _posy) {
+
+        scaleX = scalex;
+        scaleY = scaley;
+        posX = _posx;
+        posY = _posy;
+
+        bmp = ResourceManager.Instance.GetBitmap(_id);
+        bmp=Bitmap.createScaledBitmap(bmp,scaleX,
+                scaleY, true);
+    }
 
     @Override
     public boolean IsDone() {
@@ -46,6 +68,9 @@ public class CustomButton implements EntityBase {
     }
 
     public boolean CheckButtonClick() {
+        if (hideButton)
+            return false;
+
         if (TouchManager.Instance.IsClicked()) {
             int touchX = TouchManager.Instance.GetPosX();
             int touchY = TouchManager.Instance.GetPosY();
@@ -61,7 +86,10 @@ public class CustomButton implements EntityBase {
 
     @Override
     public void Render(Canvas _canvas) {
-        _canvas.drawBitmap(bmp, posX, posY, null);
+        if (hideButton)
+            return;
+
+        _canvas.drawBitmap(bmp, posX - (scaleX / 2), posY - (scaleY / 2), null);
     }
 
     @Override
@@ -85,15 +113,20 @@ public class CustomButton implements EntityBase {
     }
 
     public static CustomButton Create(int _id, int scalex, int scaley,
-                                      int _posx, int _posy, boolean addtoEM){
+                                      int _posx, int _posy){
         CustomButton result=new CustomButton();
         result.bmp_id = _id;
         result.scaleX = scalex;
         result.scaleY = scaley;
         result.posX = _posx;
         result.posY = _posy;
-        if (addtoEM)
-            EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
+
+        EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
         return result;
+    }
+
+    public void SetHidden(boolean show)
+    {
+        hideButton = show;
     }
 }

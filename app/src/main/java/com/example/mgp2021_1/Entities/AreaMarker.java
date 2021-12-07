@@ -63,7 +63,7 @@ public class AreaMarker implements EntityBase, Collidable {
         bmp = Bitmap.createScaledBitmap(bmp, bmp_width, bmp_height, true);
 
         cleanButton = CustomButton.Create(R.drawable.cleanbutton, 316, 139,
-                ScreenWidth - 400, ScreenHeight - 200, false);
+                ScreenWidth - 400, ScreenHeight - 200);
         cleanButton.Init(_view);
     }
 
@@ -78,6 +78,7 @@ public class AreaMarker implements EntityBase, Collidable {
         }
 
         isCollided = false;
+        cleanButton.SetHidden(true);
     }
 
     @Override
@@ -87,9 +88,6 @@ public class AreaMarker implements EntityBase, Collidable {
         float screenPosY = (ScreenHeight / 2) + yPos - Camera.Instance.GetPosY() - (bmp_height / 2);
 
         _canvas.drawBitmap(bmp, screenPosX, screenPosY, null); //1st image
-
-        if (isCollided)
-            cleanButton.Render(_canvas);
 
 
     }
@@ -154,6 +152,7 @@ public class AreaMarker implements EntityBase, Collidable {
     public void OnHit(Collidable _other) {
         if(_other.GetType() == "Player") {  // Another entity
             isCollided = true;
+            cleanButton.SetHidden(false);
         }
     }
 }

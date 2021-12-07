@@ -56,7 +56,7 @@ public class MainGameSceneState implements StateBase {
         }
 
         // Create Buttons
-        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 55, 55, true);
+        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 55, 55);
     }
 
     @Override
