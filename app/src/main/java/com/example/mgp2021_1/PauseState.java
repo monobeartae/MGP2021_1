@@ -53,9 +53,9 @@ public class PauseState implements StateBase {
         }
         if (btn_exit.CheckButtonClick())
         {
-            System.out.println("Exitting to Main Menu");
+            System.out.println("Exiting to Main Menu");
             StateManager.Instance.RemoveOverlayState();
-            //StateManager.Instance.ChangeState("Mainmenu");
+            StateManager.Instance.ChangeState("Mainmenu");
             //Intent intent = new Intent();
 
         }
