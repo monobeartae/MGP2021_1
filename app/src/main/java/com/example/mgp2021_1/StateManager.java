@@ -17,8 +17,8 @@ public class StateManager {
     private HashMap<String, StateBase> stateMap = new HashMap<String, StateBase>();
     private StateBase currState = null;
     private StateBase nextState = null;
-    private StateBase overlayState = null;
-    private StateBase secondaryState = null;
+    private StateBase overlayState = null; // pause // curr doesnt update, both render
+    private StateBase secondaryState = null; // minigame // curr doesnt update or render
 
     private SurfaceView view = null;
 
