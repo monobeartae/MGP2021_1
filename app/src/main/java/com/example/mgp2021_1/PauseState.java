@@ -8,11 +8,12 @@ import android.view.SurfaceView;
 import android.widget.Button;
 
 import com.example.mgp2021_1.Entities.CustomButton;
+import com.example.mgp2021_1.Entities.UIBackground;
 
 public class PauseState implements StateBase {
 
     private CustomButton btn_resume, btn_exit = null;
-
+    private UIBackground pause_menu = null;
 
     public String GetName() {
         return "Pause";
@@ -25,10 +26,16 @@ public class PauseState implements StateBase {
         int ScreenHeight = metrics.heightPixels;
         int ScreenWidth = metrics.widthPixels;
 
-        btn_resume = new CustomButton(R.drawable.resumebutton, 316, 139,
+        btn_resume = new CustomButton(R.drawable.resume_btn, 414, 102,
                 ScreenWidth / 2, ScreenHeight - 600);
-        btn_exit = new CustomButton(R.drawable.exitbutton, 316, 139,
+        btn_exit = new CustomButton(R.drawable.exit_btn, 414, 102,
                 ScreenWidth / 2, ScreenHeight - 400);
+
+        pause_menu = new UIBackground();
+        pause_menu.SetBMP(R.drawable.ui_frame1);
+        pause_menu.SetScale(600, 600);
+        pause_menu.SetPos(ScreenWidth/2, ScreenHeight/2);
+        pause_menu.Init(_view);
     }
 
     @Override
@@ -38,6 +45,7 @@ public class PauseState implements StateBase {
 
     @Override
     public void Render(Canvas _canvas) {
+        pause_menu.Render(_canvas);
         btn_resume.Render(_canvas);
         btn_exit.Render(_canvas);
     }

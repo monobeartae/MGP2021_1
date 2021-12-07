@@ -35,12 +35,14 @@ public class AreaMarker implements EntityBase, Collidable {
 
     // AreaMarker Vars
     private float xPos, yPos;
-    private float pollution;
+    private float pollution=30;
+    private float pollution_rate = 0.1f;
     private boolean isCollided = false;
 
     // UI Entities
     CustomButton cleanButton = null;
     UIBackground areaDetailMenu = null;
+    RenderTextEntity areaPollution = null;
 
     //check if anything to do with entity (use for pause)
     @Override
@@ -78,10 +80,23 @@ public class AreaMarker implements EntityBase, Collidable {
         areaDetailMenu.SetScale(600,700);
         areaDetailMenu.SetPos(1650,650);
         areaDetailMenu.Init(_view);
+
+        areaPollution = new RenderTextEntity();
+        areaPollution.Init(_view);
+        areaPollution.SetPos(1450, 600);
+        areaPollution.SetTextSize(60);
+        areaPollution.SetColor(100,10,100);
     }
 
     @Override
     public void Update(float _dt) {
+
+        if (pollution < 100)
+        {
+            pollution += pollution_rate * _dt;
+        }
+        areaPollution.SetText("Pollution: " + (int)pollution + "%");
+
         if (isCollided)
         {
             if (cleanButton.CheckButtonClick())
@@ -106,6 +121,7 @@ public class AreaMarker implements EntityBase, Collidable {
         if (isCollided)
         {
             areaDetailMenu.Render(_canvas);
+            areaPollution.Render(_canvas);
         }
     }
 
