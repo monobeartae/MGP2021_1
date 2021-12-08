@@ -34,6 +34,9 @@ public class AreaMarker implements EntityBase, Collidable {
     DisplayMetrics metrics;
 
     // AreaMarker Vars
+    static float total_pollution=0;
+    static int num_areas=0;
+
     private float xPos, yPos;
     private float pollution=30;
     private float pollution_rate = 0.1f;
@@ -82,10 +85,13 @@ public class AreaMarker implements EntityBase, Collidable {
         areaDetailMenu.Init(_view);
 
         areaPollution = new RenderTextEntity();
+        areaPollution.SetFont("fonts/Contender.otf");
         areaPollution.Init(_view);
         areaPollution.SetPos(1450, 600);
-        areaPollution.SetTextSize(60);
+        areaPollution.SetTextSize(70);
         areaPollution.SetColor(100,10,100);
+
+        num_areas++;
     }
 
     @Override
@@ -96,6 +102,8 @@ public class AreaMarker implements EntityBase, Collidable {
             pollution += pollution_rate * _dt;
         }
         areaPollution.SetText("Pollution: " + (int)pollution + "%");
+
+        total_pollution += pollution;
 
         if (isCollided)
         {
@@ -187,5 +195,17 @@ public class AreaMarker implements EntityBase, Collidable {
             isCollided = true;
             cleanButton.SetHidden(false);
         }
+    }
+
+    public static float GetAvgPollution()
+    {
+        System.out.println("Total Pollution: " + total_pollution);
+        System.out.println("Num Areas: " + num_areas);
+        return total_pollution / num_areas;
+    }
+
+    public static void ResetTotalPollution()
+    {
+        total_pollution = 0;
     }
 }

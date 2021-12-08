@@ -25,6 +25,8 @@ public class RenderTextEntity implements EntityBase {
 
         private String text;
 
+        private String font_path = "fonts/Gemcut.otf";
+
         @Override
         public boolean IsDone() {
             return isDone;
@@ -39,7 +41,7 @@ public class RenderTextEntity implements EntityBase {
         public void Init(SurfaceView _view) {
 
             // Week 8 Use my own fonts
-            myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
+            myfont = Typeface.createFromAsset(_view.getContext().getAssets(), font_path);
            // myfont = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL);
             isInit = true;
 
@@ -66,7 +68,7 @@ public class RenderTextEntity implements EntityBase {
 
         @Override
         public boolean IsInit() {
-            return true;
+            return myfont!=null;
         }
 
         @Override
@@ -110,6 +112,11 @@ public class RenderTextEntity implements EntityBase {
         public void SetTextSize(int _size)
         {
             text_size = _size;
+        }
+
+        public void SetFont(String font_path)
+        {
+            this.font_path = font_path;
         }
 
 }

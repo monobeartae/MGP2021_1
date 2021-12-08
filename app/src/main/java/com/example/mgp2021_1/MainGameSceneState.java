@@ -1,6 +1,7 @@
 package com.example.mgp2021_1;
 
 import android.graphics.Canvas;
+import android.hardware.Camera;
 import android.view.SurfaceView;
 
 import com.example.mgp2021_1.Entities.AreaMarker;
@@ -50,6 +51,7 @@ public class MainGameSceneState implements StateBase {
 
         // Create and Init UI Entities
         FPS = RenderTextEntity.Create();
+        FPS.SetFont("fonts/Steelworks.ttf");
         FPS.SetPos(30, 80);
         FPS.SetColor(0,0,0);
 
@@ -72,7 +74,7 @@ public class MainGameSceneState implements StateBase {
         }
 
         // Create Buttons
-        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 55, 55);
+        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 1920 - 70, 70);
     }
 
     @Override
@@ -101,10 +103,15 @@ public class MainGameSceneState implements StateBase {
             lastFPSTime = currentTime;
             frameCount = 0;
         }
-        FPS.SetText("FPS:" + fps);
+        FPS.SetText("fps:" + fps);
 
+        AreaMarker.ResetTotalPollution();
         // All Entity Updates
         EntityManager.Instance.Update(_dt);
+
+        //TEMP POLLUTION TEST
+       // FPS.SetText("total pollution: " + AreaMarker.GetAvgPollution());
+
 
         // Check for Pause Button Click
         if (pauseButton.CheckButtonClick())

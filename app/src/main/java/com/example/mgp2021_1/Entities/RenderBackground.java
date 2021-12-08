@@ -35,7 +35,7 @@ public class RenderBackground implements EntityBase {
 
     @Override
     public void Init(SurfaceView _view) {
-        bmp = ResourceManager.Instance.GetBitmap(bg_id);
+       // bmp = ResourceManager.Instance.GetBitmap(bg_id);
 
         DisplayMetrics metrics=_view.getResources().getDisplayMetrics();
         ScreenHeight=metrics.heightPixels;
@@ -43,7 +43,8 @@ public class RenderBackground implements EntityBase {
 
        // bmp_width = 5760;
         //bmp_height = 3240;
-        bmp=Bitmap.createScaledBitmap(bmp,bmp_width,bmp_height,true);
+        bmp=Bitmap.createScaledBitmap(ResourceManager.Instance.GetBitmap(bg_id),bmp_width,bmp_height,true);
+
 
         xPos = bmp_width / 2;
         yPos = bmp_height / 2;
@@ -52,10 +53,7 @@ public class RenderBackground implements EntityBase {
 
     @Override
     public void Update(float _dt) {
-//        xPos-=_dt*500; //deals with the speed of moving the screen
-//        if(xPos<=-ScreenWidth){
-//            xPos=0;
-//        }
+
 
     }
 

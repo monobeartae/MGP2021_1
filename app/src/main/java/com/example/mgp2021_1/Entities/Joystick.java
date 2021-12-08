@@ -43,13 +43,13 @@ public class Joystick implements EntityBase {
 
     @Override
     public void Init(SurfaceView _view) {
-        bg_bmp = ResourceManager.Instance.GetBitmap(R.drawable.joystick_bg);
-        joystick_bmp = ResourceManager.Instance.GetBitmap(R.drawable.joystick);
+        //bg_bmp = ResourceManager.Instance.GetBitmap(R.drawable.joystick_bg);
+        //joystick_bmp = ResourceManager.Instance.GetBitmap(R.drawable.joystick);
 
         DisplayMetrics metrics=_view.getResources().getDisplayMetrics();
-        bg_bmp=Bitmap.createScaledBitmap(bg_bmp,outer_radius * 2,
+        bg_bmp=Bitmap.createScaledBitmap(ResourceManager.Instance.GetBitmap(R.drawable.joystick_bg),outer_radius * 2,
                 outer_radius * 2, true);
-        joystick_bmp=Bitmap.createScaledBitmap(joystick_bmp,inner_radius * 2,
+        joystick_bmp=Bitmap.createScaledBitmap(ResourceManager.Instance.GetBitmap(R.drawable.joystick),inner_radius * 2,
                 inner_radius * 2, true);
 
         posX=originX=outer_radius + 70;
@@ -60,6 +60,7 @@ public class Joystick implements EntityBase {
 
     @Override
     public void Update(float _dt) {
+
         if (!isHeld)
         {
             if (TouchManager.Instance.IsDown() &&
