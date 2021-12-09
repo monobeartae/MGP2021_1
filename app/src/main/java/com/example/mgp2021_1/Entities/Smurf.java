@@ -53,8 +53,8 @@ public class Smurf implements EntityBase, Collidable {
         spritesmurf = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.smurf_sprite),4,4, 16 );
 
         Random ranGen = new Random();
-        xPos = ranGen.nextFloat() * _view.getWidth();
-        yPos = ranGen.nextFloat() * _view.getHeight();
+        xPos = (5760 / 2);
+        yPos = (3240 / 2);
 
         lifetime = 30.0f;
         isInit = true;

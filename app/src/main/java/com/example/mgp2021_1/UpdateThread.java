@@ -26,7 +26,6 @@ public class UpdateThread extends Thread {
         EntityManager.Instance.Init(_view);
         GameSystem.Instance.Init(_view);
         ResourceManager.Instance.Init(_view);
-        Camera.Instance.Init();
     }
 
     public boolean IsRunning()
@@ -68,7 +67,7 @@ public class UpdateThread extends Thread {
 
             // Update
             StateManager.Instance.Update(deltaTime);
-            Camera.Instance.Update(deltaTime);
+
             TouchManager.Instance.UpdateStatus();
 
             // Render

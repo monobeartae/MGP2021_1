@@ -76,7 +76,7 @@ public class Ship implements EntityBase {
         xPos += Joystick.Instance.GetDirX() * _dt * playerSpeed;
         yPos += Joystick.Instance.GetDirY() * _dt * playerSpeed;
 
-        Camera.Instance.SetPos(xPos, yPos);
+        Camera.Instance.SetTarget(xPos, yPos);
         // SetIsDone(true); when end game?
 
     }

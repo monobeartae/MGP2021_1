@@ -38,7 +38,7 @@ public class Player implements EntityBase, Collidable {
     Matrix tfx = new Matrix();
     DisplayMetrics metrics;
 
-    private float playerSpeed = 100.0f;
+    private float playerSpeed = 200.0f;
 
 
     //check if anything to do with entity (use for pause)
@@ -73,15 +73,17 @@ public class Player implements EntityBase, Collidable {
         left_bmp = Bitmap.createScaledBitmap(left_bmp, bmp_width * 4, bmp_height, true);
         right_bmp = Bitmap.createScaledBitmap(right_bmp, bmp_width * 4, bmp_height, true);
 
-        player_up = new Sprite(up_bmp,1,4, 2 );
-        player_down = new Sprite(down_bmp,1,4, 2 );
-        player_left = new Sprite(left_bmp,1,4, 2 );
-        player_right = new Sprite(right_bmp,1,4, 2 );
+        player_up = new Sprite(up_bmp,1,4, 4 );
+        player_down = new Sprite(down_bmp,1,4, 4 );
+        player_left = new Sprite(left_bmp,1,4, 4 );
+        player_right = new Sprite(right_bmp,1,4, 4 );
 
         player_sprite =  player_down;
 
         xPos = (5760 / 2) - (bmp_width / 2);
         yPos = (3240 / 2) - (bmp_height / 2);
+
+        Camera.Instance.SetPos(xPos, yPos);
     }
 
     @Override
@@ -93,7 +95,9 @@ public class Player implements EntityBase, Collidable {
         xPos += dirX * _dt * playerSpeed;
         yPos += dirY * _dt * playerSpeed;
 
-        Camera.Instance.SetPos(xPos, yPos);
+        Constraint();
+
+        Camera.Instance.SetTarget(xPos, yPos);
 
         if (dirX * dirX > dirY * dirY)
         {
@@ -178,6 +182,19 @@ public class Player implements EntityBase, Collidable {
     @Override
     public void OnHit(Collidable _other) {
 
+    }
+
+    private void Constraint()
+    {
+        if (xPos - (bmp_width / 2) < 0)
+            xPos = bmp_width / 2;
+        else if (xPos + (bmp_width / 2) > 5760)
+            xPos = 5760 - (bmp_width / 2);
+
+        if (yPos - (bmp_height / 2) < 0)
+            yPos = bmp_height / 2;
+        else if (yPos + (bmp_height / 2) > 3240)
+            yPos = 3240 - (bmp_height / 2);
     }
 
 }

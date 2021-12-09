@@ -1,7 +1,6 @@
 package com.example.mgp2021_1;
 
 import android.graphics.Canvas;
-import android.hardware.Camera;
 import android.view.SurfaceView;
 
 import com.example.mgp2021_1.Entities.AreaMarker;
@@ -44,6 +43,8 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
+        Camera.Instance.Init(_view);
+
         // Create and Init game scene bg
         RenderBackground bg = RenderBackground.Create();
         bg.SetBMP(R.drawable.testmap);
@@ -59,6 +60,7 @@ public class MainGameSceneState implements StateBase {
 
         // Create and init Game related entities
         player = Player.Create();
+        Smurf.Create();
 
         float areaPos[] = {
                 1000, 1000,
@@ -104,6 +106,8 @@ public class MainGameSceneState implements StateBase {
             frameCount = 0;
         }
         FPS.SetText("fps:" + fps);
+
+        Camera.Instance.Update(_dt);
 
         AreaMarker.ResetTotalPollution();
         // All Entity Updates
