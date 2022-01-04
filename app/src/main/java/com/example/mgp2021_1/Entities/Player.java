@@ -147,12 +147,12 @@ public class Player implements EntityBase, Collidable {
 
     @Override
     public ENTITY_TYPE GetEntityType() {
-        return ENTITY_TYPE.ENT_DEFAULT;
+        return ENTITY_TYPE.ENT_PLAYER;
     }
 
     public static Player Create() {
         Player result = new Player();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_PLAYER);
         return result;
     }
 

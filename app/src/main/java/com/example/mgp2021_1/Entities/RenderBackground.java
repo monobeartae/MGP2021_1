@@ -8,6 +8,7 @@ import android.view.SurfaceView;
 
 import com.example.mgp2021_1.Camera;
 import com.example.mgp2021_1.EntityManager;
+import com.example.mgp2021_1.GamePage;
 import com.example.mgp2021_1.LayerConstants;
 import com.example.mgp2021_1.R;
 import com.example.mgp2021_1.ResourceManager;
@@ -19,6 +20,8 @@ public class RenderBackground implements EntityBase {
     int ScreenWidth,ScreenHeight;
     private float xPos,yPos, offset;
     private SurfaceView view=null;
+
+    GamePage aaa;
 
     private int bg_id;
     //check if anything to do with entity (use for pause)
@@ -53,7 +56,6 @@ public class RenderBackground implements EntityBase {
 
     @Override
     public void Update(float _dt) {
-
 
     }
 
@@ -90,6 +92,12 @@ public class RenderBackground implements EntityBase {
     public static RenderBackground Create(){
         RenderBackground result=new RenderBackground();
         EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
+        return result;
+    }
+
+    public static RenderBackground CreateTemp(){
+        RenderBackground result=new RenderBackground();
+        EntityManager.TempInstance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
         return result;
     }
 

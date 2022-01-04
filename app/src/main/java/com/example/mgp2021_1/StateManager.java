@@ -83,7 +83,7 @@ public class StateManager {
         }
     }
 
-    void Update(float _dt)
+    public void Update(float _dt)
     {
         if (nextState != currState)
         {

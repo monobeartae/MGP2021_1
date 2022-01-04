@@ -1,6 +1,8 @@
 package com.example.mgp2021_1;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.SurfaceView;
 
 import com.example.mgp2021_1.Entities.AreaMarker;
@@ -9,8 +11,6 @@ import com.example.mgp2021_1.Entities.Joystick;
 import com.example.mgp2021_1.Entities.Player;
 import com.example.mgp2021_1.Entities.RenderBackground;
 import com.example.mgp2021_1.Entities.RenderTextEntity;
-import com.example.mgp2021_1.Entities.Ship;
-import com.example.mgp2021_1.Entities.Smurf;
 import com.example.mgp2021_1.Entities.UIBackground;
 
 import java.util.Vector;
@@ -60,7 +60,6 @@ public class MainGameSceneState implements StateBase {
 
         // Create and init Game related entities
         player = Player.Create();
-        Smurf.Create();
 
         float areaPos[] = {
                 1000, 1000,
@@ -89,11 +88,24 @@ public class MainGameSceneState implements StateBase {
     public void Render(Canvas _canvas)
     {
         EntityManager.Instance.Render(_canvas);
+       // System.out.println("MainGameSceneState::Render::Being Called");
+
+        Paint paint = new Paint();
+        paint.setStrokeWidth(10);
+        paint.setARGB(255, 255, 255, 255);
+        paint.setStyle(Paint.Style.STROKE);
+        _canvas.drawRect((1920 / 2) - 490.0f, 10,(1920 / 2) + 510.0f,70, paint);
+
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.FILL);
+        _canvas.drawRect((1920 / 2) - 500.0f, 20,
+                (1920 / 2) - 500.0f + (AreaMarker.GetAvgPollution() / 100) * 1000.0f,60, paint);
 
     }
 
     @Override
     public void Update(float _dt) {
+
 
         // FPS
         frameCount++;

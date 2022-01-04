@@ -14,11 +14,17 @@ import java.util.LinkedList;
 public class EntityManager {
 
     public final static EntityManager Instance = new EntityManager();
+    public static EntityManager TempInstance = new EntityManager();
     private LinkedList<EntityBase> entityList = new LinkedList<EntityBase>();
     private SurfaceView view = null;
 
     private EntityManager()
     {
+    }
+
+    public static void CreateTempInstance()
+    {
+        TempInstance = new EntityManager();
     }
 
     public void Init(SurfaceView _view)
@@ -108,6 +114,7 @@ public class EntityManager {
         removalList.clear();
     }
 
+
     public void Render(Canvas _canvas)
     {
       
@@ -127,9 +134,11 @@ public class EntityManager {
         }
     }
 
+
     public void AddEntity(EntityBase _newEntity, EntityBase.ENTITY_TYPE entity_type)
     {
         entityList.add(_newEntity);
+
     }
 
     public void Clean()

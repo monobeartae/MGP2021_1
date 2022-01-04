@@ -111,6 +111,7 @@ public class AreaMarker implements EntityBase, Collidable {
             {
                 System.out.println("Clean Button Clicked");
                 StateManager.Instance.SetSecondaryState("Minigame");
+                StateManager.Instance.Update(_dt);
             }
         }
 
@@ -150,12 +151,12 @@ public class AreaMarker implements EntityBase, Collidable {
 
     @Override
     public ENTITY_TYPE GetEntityType() {
-        return ENTITY_TYPE.ENT_DEFAULT;
+        return ENTITY_TYPE.ENT_AREAMARKER;
     }
 
     public static AreaMarker Create() {
         AreaMarker result = new AreaMarker();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_AREAMARKER);
 
         return result;
     }
@@ -199,8 +200,8 @@ public class AreaMarker implements EntityBase, Collidable {
 
     public static float GetAvgPollution()
     {
-        System.out.println("Total Pollution: " + total_pollution);
-        System.out.println("Num Areas: " + num_areas);
+       // System.out.println("Total Pollution: " + total_pollution);
+        //System.out.println("Num Areas: " + num_areas);
         return total_pollution / num_areas;
     }
 

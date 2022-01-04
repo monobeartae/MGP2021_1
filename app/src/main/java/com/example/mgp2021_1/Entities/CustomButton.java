@@ -109,7 +109,7 @@ public class CustomButton implements EntityBase {
 
     @Override
     public ENTITY_TYPE GetEntityType() {
-        return ENTITY_TYPE.ENT_DEFAULT;
+        return ENTITY_TYPE.ENT_UI;
     }
 
     public static CustomButton Create(int _id, int scalex, int scaley,
@@ -121,7 +121,20 @@ public class CustomButton implements EntityBase {
         result.posX = _posx;
         result.posY = _posy;
 
-        EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
+        EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_UI);
+        return result;
+    }
+
+    public static CustomButton CreateTemp(int _id, int scalex, int scaley,
+                                      int _posx, int _posy){
+        CustomButton result=new CustomButton();
+        result.bmp_id = _id;
+        result.scaleX = scalex;
+        result.scaleY = scaley;
+        result.posX = _posx;
+        result.posY = _posy;
+
+        EntityManager.TempInstance.AddEntity(result,ENTITY_TYPE.ENT_UI);
         return result;
     }
 

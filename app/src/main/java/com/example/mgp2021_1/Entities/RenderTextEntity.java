@@ -12,112 +12,113 @@ import com.example.mgp2021_1.LayerConstants;
 
 public class RenderTextEntity implements EntityBase {
 
-        // Paint object
+    // Paint object
+    Paint paint = new Paint();
+    private int red = 0, green = 0, blue = 0;
+    private float posX, posY = 0;
+    private int text_size = 70;
+
+    private boolean isDone = false;
+    private boolean isInit = false;
+
+    Typeface myfont;
+
+    private String text;
+
+    private String font_path = "fonts/Gemcut.otf";
+
+    @Override
+    public boolean IsDone() {
+        return isDone;
+    }
+
+    @Override
+    public void SetIsDone(boolean _isDone) {
+        isDone = _isDone;
+    }
+
+    @Override
+    public void Init(SurfaceView _view) {
+
+        // Week 8 Use my own fonts
+        myfont = Typeface.createFromAsset(_view.getContext().getAssets(), font_path);
+        // myfont = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL);
+        isInit = true;
+
+    }
+
+    @Override
+    public void Update(float _dt) {
+
+    }
+
+    @Override
+    public void Render(Canvas _canvas) {
+
         Paint paint = new Paint();
-        private int red = 0, green = 0, blue = 0;
-        private float posX, posY = 0;
-        private int text_size = 70;
-
-        private boolean isDone = false;
-        private boolean isInit = false;
-
-        Typeface myfont;
-
-        private String text;
-
-        private String font_path = "fonts/Gemcut.otf";
-
-        @Override
-        public boolean IsDone() {
-            return isDone;
-        }
-
-        @Override
-        public void SetIsDone(boolean _isDone) {
-            isDone = _isDone;
-        }
-
-        @Override
-        public void Init(SurfaceView _view) {
-
-            // Week 8 Use my own fonts
-            myfont = Typeface.createFromAsset(_view.getContext().getAssets(), font_path);
-           // myfont = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL);
-            isInit = true;
-
-        }
-
-        @Override
-        public void Update(float _dt) {
-
-        }
-
-        @Override
-        public void Render(Canvas _canvas)
-        {
-
-            Paint paint = new Paint();
-            paint.setARGB(255, red,green,blue);
-            //paint.setStrokeWidth(200);
-            paint.setTypeface(myfont);
-            paint.setTextSize(text_size);
-            _canvas.drawText(text, posX, posY, paint);
+        paint.setARGB(255, red, green, blue);
+        //paint.setStrokeWidth(200);
+        paint.setTypeface(myfont);
+        paint.setTextSize(text_size);
+        _canvas.drawText(text, posX, posY, paint);
 
 
-        }
+    }
 
-        @Override
-        public boolean IsInit() {
-            return myfont!=null;
-        }
+    @Override
+    public boolean IsInit() {
+        return myfont != null;
+    }
 
-        @Override
-        public int GetRenderLayer() {
-            return LayerConstants.RENDERTEXT_LAYER;
-        }
+    @Override
+    public int GetRenderLayer() {
+        return LayerConstants.RENDERTEXT_LAYER;
+    }
 
-        @Override
-        public void SetRenderLayer(int _newLayer) {
-            return;
-        }
+    @Override
+    public void SetRenderLayer(int _newLayer) {
+        return;
+    }
 
-        @Override
-        public ENTITY_TYPE GetEntityType(){ return ENTITY_TYPE.ENT_TEXT;}
+    @Override
+    public ENTITY_TYPE GetEntityType() {
+        return ENTITY_TYPE.ENT_TEXT;
+    }
 
-        public static RenderTextEntity Create()
-        {
-            RenderTextEntity result = new RenderTextEntity();
-            EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_TEXT);
-            return result;
-        }
+    public static RenderTextEntity Create() {
+        RenderTextEntity result = new RenderTextEntity();
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_TEXT);
+        return result;
+    }
 
-        public void SetText(String _text)
-        {
-            text = _text;
-        }
+    public static RenderTextEntity CreateTemp() {
+        RenderTextEntity result = new RenderTextEntity();
+        EntityManager.TempInstance.AddEntity(result, ENTITY_TYPE.ENT_TEXT);
+        return result;
+    }
 
-        public void SetColor(int r, int g, int b)
-        {
-            red = r;
-            green = g;
-            blue = b;
-        }
+    public void SetText(String _text) {
+        text = _text;
+    }
 
-        public void SetPos(int _x, int _y)
-        {
-            posX = _x;
-            posY = _y;
-        }
+    public void SetColor(int r, int g, int b) {
+        red = r;
+        green = g;
+        blue = b;
+    }
 
-        public void SetTextSize(int _size)
-        {
-            text_size = _size;
-        }
+    public void SetPos(int _x, int _y) {
+        posX = _x;
+        posY = _y;
+    }
 
-        public void SetFont(String font_path)
-        {
-            this.font_path = font_path;
-        }
+    public void SetTextSize(int _size) {
+        text_size = _size;
+    }
+
+    public void SetFont(String font_path) {
+        this.font_path = font_path;
+    }
 
 }
 
