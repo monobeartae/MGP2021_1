@@ -111,7 +111,7 @@ public class AreaMarker implements EntityBase, Collidable {
             {
                 System.out.println("Clean Button Clicked");
                 StateManager.Instance.SetSecondaryState("Minigame");
-                StateManager.Instance.Update(_dt);
+
             }
         }
 

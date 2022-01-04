@@ -33,7 +33,7 @@ public class MainGameSceneState implements StateBase {
 
 
     // GameObject Entities
-    Player player = null;
+    public static Player player = null;
 
     @Override
     public String GetName() {

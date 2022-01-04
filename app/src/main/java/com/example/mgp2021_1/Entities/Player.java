@@ -38,7 +38,7 @@ public class Player implements EntityBase, Collidable {
     Matrix tfx = new Matrix();
     DisplayMetrics metrics;
 
-    private float playerSpeed = 200.0f;
+    private float playerSpeed = 300.0f;
 
 
     //check if anything to do with entity (use for pause)

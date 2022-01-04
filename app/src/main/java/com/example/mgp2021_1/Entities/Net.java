@@ -3,6 +3,7 @@ package com.example.mgp2021_1.Entities;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.text.method.Touch;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
@@ -52,7 +53,7 @@ public class Net implements EntityBase, Collidable {
         bmp_width = ScreenWidth / 10;
         bmp_height = ScreenHeight / 7;
 
-        bmp = Bitmap.createScaledBitmap(ResourceManager.Instance.GetBitmap(R.drawable.ship2_1),
+        bmp = Bitmap.createScaledBitmap(ResourceManager.Instance.GetBitmap(R.drawable.fishing_net),
                 (int)bmp_width, (int)bmp_height, true);
 
 //        Random ranGen = new Random();
@@ -66,7 +67,6 @@ public class Net implements EntityBase, Collidable {
     public void Update(float _dt) {
 
 
-
         float imgRadius = bmp.getHeight() * 0.5f;
         if (isHeld)
         {
@@ -75,13 +75,14 @@ public class Net implements EntityBase, Collidable {
             yPos = TouchManager.Instance.GetPosY();
             Constraint();
 
-            if (!TouchManager.Instance.IsDown())
+            if (!TouchManager.Instance.IsDown() && !TouchManager.Instance.HasTouch())
             {
                 isHeld = false;
             }
         }
         else if (TouchManager.Instance.HasTouch()
-        && Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius))
+        && Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f,
+                xPos, yPos, imgRadius))
         {
             isHeld = true;
         }
@@ -156,7 +157,8 @@ public class Net implements EntityBase, Collidable {
             xPos = bmp_width / 2;
         else if (xPos + (bmp_width / 2) > ScreenWidth)
             xPos = ScreenWidth - (bmp_width / 2);
-        else if (yPos - (bmp_height / 2) < ScreenHeight * 0.6f)
+
+        if (yPos - (bmp_height / 2) < ScreenHeight * 0.6f)
             yPos = (ScreenHeight * 0.6f) + (bmp_height / 2);
         else if (yPos + (bmp_height / 2) > ScreenHeight)
             yPos = ScreenHeight - (bmp_height / 2);

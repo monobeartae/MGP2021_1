@@ -19,7 +19,8 @@ import java.util.LinkedList;
 public class CatchTheTrash implements StateBase
 {
 
-    private float timer = 10.0f;
+    private float timer;
+    private float minigame_duration = 10.0f;
     private RenderBackground bg = null;
     private Net net = null;
 
@@ -40,6 +41,8 @@ public class CatchTheTrash implements StateBase
     public void OnEnter(SurfaceView _view)
     {
 
+        timer = minigame_duration;
+
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
@@ -52,9 +55,7 @@ public class CatchTheTrash implements StateBase
         Camera.Instance.SetPos(ScreenWidth / 2,ScreenHeight / 2);
 
         // Create Entities
-
         net = Net.CreateTemp();
-
 
         // Create UI
         // Create Buttons
@@ -66,11 +67,14 @@ public class CatchTheTrash implements StateBase
         timer_text.SetFont("fonts/EnsoBold.ttf");
         timer_text.SetText(" ");
 
+        EntityManager.TempInstance.InitEntities(_view);
+
     }
 
     @Override
     public void OnExit() {
         EntityManager.TempInstance.Clean();
+        Camera.Instance.SetPos(MainGameSceneState.player.GetPosX(), MainGameSceneState.player.GetPosY());
     }
 
     @Override
@@ -85,8 +89,9 @@ public class CatchTheTrash implements StateBase
 
         // All Entity Updates
         EntityManager.TempInstance.Update(_dt);
+        EntityManager.Instance.Update(EntityBase.ENTITY_TYPE.ENT_AREAMARKER, _dt);
 
-        Camera.Instance.SetPos(ScreenWidth / 2,ScreenHeight / 2);
+        //Camera.Instance.SetPos(ScreenWidth / 2,ScreenHeight / 2);
 
         // Check for Pause Button Click
         if (pauseButton.CheckButtonClick())
