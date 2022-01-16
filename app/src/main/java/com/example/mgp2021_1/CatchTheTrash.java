@@ -39,7 +39,7 @@ public class CatchTheTrash implements StateBase
 
     @Override
     public String GetName() {
-        return "Minigame";
+        return "CTTMiniGame";
     }
 
     @Override
@@ -105,6 +105,8 @@ public class CatchTheTrash implements StateBase
 
     @Override
     public void Update(float _dt) {
+
+        MainGameSceneState.timer += _dt;
 
         // All Entity Updates
         EntityManager.TempInstance.Update(_dt);

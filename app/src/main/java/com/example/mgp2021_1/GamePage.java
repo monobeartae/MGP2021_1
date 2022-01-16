@@ -10,7 +10,9 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class GamePage extends Activity {
+import androidx.fragment.app.FragmentActivity;
+
+public class GamePage extends FragmentActivity {
 
     public static GamePage Instance = null;
 
@@ -37,6 +39,15 @@ public class GamePage extends Activity {
         TouchManager.Instance.Update(x, y, event.getAction());
 
         return true;
+    }
+
+    public void EndGame()
+    {
+        MainGameSceneState.RecordTiming();
+        Intent intent = new Intent();
+        intent.setClass(this, Mainmenu.class);
+        StateManager.Instance.ChangeState("Mainmenu"); // Default is like a loading page
+        startActivity(intent);
     }
 
 

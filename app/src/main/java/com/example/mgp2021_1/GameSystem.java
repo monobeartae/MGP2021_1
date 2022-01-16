@@ -37,6 +37,7 @@ public class GameSystem {
         StateManager.Instance.AddState(new HelpMenu());
         StateManager.Instance.AddState(new OptionsMenu());
         StateManager.Instance.AddState(new CatchTheTrash());
+        StateManager.Instance.AddState(new SweepTheTrash());
 
 
         // Get our shared preferences (Save File)

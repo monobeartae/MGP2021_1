@@ -5,6 +5,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceView;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+
 import com.example.mgp2021_1.Entities.AreaMarker;
 import com.example.mgp2021_1.Entities.CustomButton;
 import com.example.mgp2021_1.Entities.Joystick;
@@ -19,7 +24,7 @@ import java.util.Vector;
 
 public class MainGameSceneState implements StateBase {
 
-    private float timer = 0.0f;
+    public static float timer = 0.0f;
 
     // FPS
     int frameCount;
@@ -42,6 +47,7 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
+        timer = 0;
 
         Camera.Instance.Init(_view);
 
@@ -63,7 +69,7 @@ public class MainGameSceneState implements StateBase {
 
         float areaPos[] = {
                 1000, 1000,
-                50, 50,
+                200, 100,
                 500, 700,
                 3500, 1240
         };
@@ -75,29 +81,11 @@ public class MainGameSceneState implements StateBase {
         }
 
         // Create Buttons
-        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 1920 - 70, 70);
+        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100,
+                1920 - 70, 70);
 
-
-        //TEST
-        GameSystem.Instance.SaveEditBegin();
-        GameSystem.Instance.SetIntInSave("Score0", 10);
-        for (int i = 1; i < 6; i++)
-        {
-            if (GameSystem.Instance.GetIntFromSave("Score" + i) == 0)
-            {
-
-                GameSystem.Instance.SetIntInSave("Score" + i, 10);
-                GameSystem.Instance.SaveEditEnd();
-                return;
-            }
-        }
-
-        for (int i = 1; i < 5; i++) {
-            GameSystem.Instance.SetIntInSave("Score" + i, GameSystem.Instance.GetIntFromSave("Score" + (i + 1)));
-        }
-        GameSystem.Instance.SetIntInSave("Score" + 5, 11);
-        GameSystem.Instance.SaveEditEnd();
-
+        AudioManager.Instance.PlayAudio(R.raw.monkeys);
+        AudioManager.Instance.SetVolume(R.raw.monkeys, 1.0f);
     }
 
     @Override
@@ -110,8 +98,6 @@ public class MainGameSceneState implements StateBase {
     public void Render(Canvas _canvas)
     {
         EntityManager.Instance.Render(_canvas);
-       // System.out.println("MainGameSceneState::Render::Being Called");
-
 
         // Pollution Bar
         Paint paint = new Paint();
@@ -120,10 +106,10 @@ public class MainGameSceneState implements StateBase {
         paint.setStyle(Paint.Style.STROKE);
         _canvas.drawRect((1920 / 2) - 490.0f, 10,(1920 / 2) + 510.0f,70, paint);
 
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.MAGENTA);
         paint.setStyle(Paint.Style.FILL);
-        _canvas.drawRect((1920 / 2) - 500.0f, 20,
-                (1920 / 2) - 500.0f + (AreaMarker.GetAvgPollution() / 100) * 1000.0f,60, paint);
+        _canvas.drawRect((1920 / 2) - 490.0f, 15,
+                (1920 / 2) - 500.0f + (AreaMarker.GetAvgPollution() / 100) * 1000.0f,65, paint);
 
     }
 
@@ -150,8 +136,6 @@ public class MainGameSceneState implements StateBase {
         // All Entity Updates
         EntityManager.Instance.Update(_dt);
 
-
-
         // Check for Pause Button Click
         if (pauseButton.CheckButtonClick())
         {
@@ -160,7 +144,47 @@ public class MainGameSceneState implements StateBase {
         }
 
         // Check for End Game Condition
+        if (AreaMarker.GetAvgPollution() < 10 && !GameWinDialog.isShown)
+        {
+            // Cleared
+            GameWinDialog winDialog = new GameWinDialog();
+            winDialog.show(GamePage.Instance.getSupportFragmentManager(), "GameWin");
+        }
+        else if (AreaMarker.GetAvgPollution() > 70)
+        {
+            // Lost
+            GameLostDialog loseDialog = new GameLostDialog();
+            loseDialog.show(GamePage.Instance.getSupportFragmentManager(), "GameLost");
+        }
+
     }
+
+    public static void RecordTiming()
+    {
+        //TEST
+        GameSystem.Instance.SaveEditBegin();
+
+        if (timer < GameSystem.Instance.GetIntFromSave("BestScore") || GameSystem.Instance.GetIntFromSave("BestScore") == 0)
+            GameSystem.Instance.SetIntInSave("BestScore", (int)timer);
+
+        for (int i = 1; i < 6; i++)
+        {
+            if (GameSystem.Instance.GetIntFromSave("Score" + i) == 0)
+            {
+                GameSystem.Instance.SetIntInSave("Score" + i, (int)timer);
+                GameSystem.Instance.SaveEditEnd();
+                return;
+            }
+        }
+
+        for (int i = 1; i < 5; i++) {
+            GameSystem.Instance.SetIntInSave("Score" + i, GameSystem.Instance.GetIntFromSave("Score" + (i + 1)));
+        }
+        GameSystem.Instance.SetIntInSave("Score5", (int)timer);
+
+        GameSystem.Instance.SaveEditEnd();
+    }
+
 }
 
 

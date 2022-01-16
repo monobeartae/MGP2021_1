@@ -34,11 +34,14 @@ public class HistoryMenu extends Activity implements View.OnClickListener, State
         btn_back.setOnClickListener(this); //Set Listener to this button --> Start Button
 
         text_bestTiming = (TextView) findViewById(R.id.text_best);
-        text_bestTiming.setText(String.format("Best Record: %d", GameSystem.Instance.GetIntFromSave("Score0")));
+        if (GameSystem.Instance.GetIntFromSave("BestScore") == 0)
+            text_bestTiming.setText("Best Record: NULL");
+        else
+            text_bestTiming.setText(String.format("Best Record: %d seconds", GameSystem.Instance.GetIntFromSave("BestScore")));
         text_History = (TextView) findViewById(R.id.text_history);
 
         String text = "LATEST CLEAR TIMINGS: \n";
-        for (int i = 1; i < 6; i++)
+        for (int i = 5; i > 0; i--)
         {
             if (GameSystem.Instance.GetIntFromSave("Score" + i) == 0)
                 continue;

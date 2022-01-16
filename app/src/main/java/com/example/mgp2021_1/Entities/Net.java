@@ -72,7 +72,7 @@ public class Net implements EntityBase, Collidable {
         {
             // System.out.println("Net::Update::Collision with touch pos and net");
             xPos = TouchManager.Instance.GetPosX();
-            yPos = TouchManager.Instance.GetPosY();
+           // yPos = TouchManager.Instance.GetPosY();
             Constraint();
 
             if (!TouchManager.Instance.IsDown() && !TouchManager.Instance.HasTouch())

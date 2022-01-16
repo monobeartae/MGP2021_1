@@ -48,6 +48,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
 
         GameSystem.Instance.sharedPref = getSharedPreferences(GameSystem.SHARED_PREF_ID, 0);
 
+        //AudioManager.Instance.PlayAudio(R.raw.monkeys);
     }
 
     @Override

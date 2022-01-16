@@ -5,6 +5,7 @@ package com.example.mgp2021_1;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.provider.MediaStore;
 import android.view.SurfaceHolder;
 
 public class UpdateThread extends Thread {
@@ -21,12 +22,13 @@ public class UpdateThread extends Thread {
         view = _view;
         holder = _view.getHolder();
 
-		  // Manage your managers if there is any
+        // Manage your managers if there is any
         StateManager.Instance.Init(_view);
         EntityManager.Instance.Init(_view);
         EntityManager.TempInstance.Init(_view);
         GameSystem.Instance.Init(_view);
         ResourceManager.Instance.Init(_view);
+        AudioManager.Instance.Init(_view);
     }
 
     public boolean IsRunning()
@@ -41,6 +43,7 @@ public class UpdateThread extends Thread {
 
     public void Terminate()
     {
+        AudioManager.Instance.Release();
         isRunning = false;
     }
 
