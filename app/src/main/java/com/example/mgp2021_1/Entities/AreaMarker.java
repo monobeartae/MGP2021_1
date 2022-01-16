@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 import com.example.mgp2021_1.Camera;
+import com.example.mgp2021_1.CatchTheTrash;
 import com.example.mgp2021_1.Collidable;
 import com.example.mgp2021_1.Collision;
 import com.example.mgp2021_1.EntityManager;
@@ -38,7 +39,7 @@ public class AreaMarker implements EntityBase, Collidable {
     static int num_areas=0;
 
     private float xPos, yPos;
-    private float pollution=30;
+    public float pollution=30;
     private float pollution_rate = 0.1f;
     private boolean isCollided = false;
 
@@ -110,7 +111,9 @@ public class AreaMarker implements EntityBase, Collidable {
             if (cleanButton.CheckButtonClick())
             {
                 System.out.println("Clean Button Clicked");
+                CatchTheTrash.area = this;
                 StateManager.Instance.SetSecondaryState("Minigame");
+
 
             }
         }
@@ -200,7 +203,7 @@ public class AreaMarker implements EntityBase, Collidable {
 
     public static float GetAvgPollution()
     {
-       // System.out.println("Total Pollution: " + total_pollution);
+        System.out.println("Total Pollution: " + total_pollution);
         //System.out.println("Num Areas: " + num_areas);
         return total_pollution / num_areas;
     }

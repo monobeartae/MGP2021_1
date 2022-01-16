@@ -18,7 +18,8 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     //Define buttons
     private Button btn_start;
     private Button btn_exit;
-    private Button btn_optionsmenu;
+    private Button btn_settings;
+    private Button btn_history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,13 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         btn_exit = (Button)findViewById(R.id.btn_exit);
         btn_exit.setOnClickListener(this); //Set Listener to this button --> Back Button
 
-        btn_optionsmenu = (Button)findViewById(R.id.btn_optionsmenu);
-        btn_optionsmenu.setOnClickListener(this); //Set Listener to this button --> Back Button
+        btn_settings = (Button)findViewById(R.id.btn_settings);
+        btn_settings.setOnClickListener(this); //Set Listener to this button --> Back Button
 
+        btn_history = (Button)findViewById(R.id.btn_history);
+        btn_history.setOnClickListener(this); //Set Listener to this button --> Back Button
+
+        GameSystem.Instance.sharedPref = getSharedPreferences(GameSystem.SHARED_PREF_ID, 0);
 
     }
 
@@ -66,9 +71,14 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         {
             intent.setClass(this, Splashpage.class);
         }
-        else if (v == btn_optionsmenu)
+        else if (v == btn_settings)
         {
             intent.setClass(this, OptionsMenu.class);
+
+        }
+        else if (v == btn_history)
+        {
+            intent.setClass(this, HistoryMenu.class);
         }
         startActivity(intent);
 

@@ -54,6 +54,15 @@ public class Camera {
         xPos += (targetX - xPos) * cam_speed *  _dt;
         yPos += (targetY - yPos) * cam_speed *  _dt;
         Constraint();
+
+        if (Math.abs(targetX - xPos) < 0.05)
+        {
+            targetX = xPos;
+        }
+        if (Math.abs(targetY - yPos) < 0.05)
+        {
+            targetY = yPos;
+        }
     }
 
     private void Constraint()

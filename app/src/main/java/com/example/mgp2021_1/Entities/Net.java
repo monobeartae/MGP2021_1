@@ -50,8 +50,8 @@ public class Net implements EntityBase, Collidable {
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
 
-        bmp_width = ScreenWidth / 10;
-        bmp_height = ScreenHeight / 7;
+        bmp_width = ScreenWidth / 8;
+        bmp_height = ScreenHeight / 5;
 
         bmp = Bitmap.createScaledBitmap(ResourceManager.Instance.GetBitmap(R.drawable.fishing_net),
                 (int)bmp_width, (int)bmp_height, true);
@@ -143,7 +143,7 @@ public class Net implements EntityBase, Collidable {
 
     @Override
     public float GetRadius() {
-        return bmp.getWidth();
+        return bmp.getWidth() * 0.5f;
     }
 
     @Override

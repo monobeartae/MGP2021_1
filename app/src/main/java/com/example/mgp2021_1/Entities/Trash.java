@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.CatchTheTrash;
 import com.example.mgp2021_1.Collidable;
 import com.example.mgp2021_1.Collision;
 import com.example.mgp2021_1.EntityManager;
@@ -27,6 +28,8 @@ public class Trash implements EntityBase, Collidable {
     private float yPos = 0;
 
     private float speed = 0;
+
+    public float spawnDelay = 0;
 
     private boolean isDone = false;
     private boolean isInit = false;
@@ -51,8 +54,8 @@ public class Trash implements EntityBase, Collidable {
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
 
-        bmp_width = ScreenWidth / 10;
-        bmp_height = ScreenHeight / 7;
+        bmp_width = ScreenWidth / 12;
+        bmp_height = ScreenHeight / 9;
 
         Random ranGen = new Random();
 
@@ -73,16 +76,25 @@ public class Trash implements EntityBase, Collidable {
                 (int)bmp_width, (int)bmp_height, true);
 
 
-        xPos = ranGen.nextFloat() * (ScreenWidth - bmp_width) - (ScreenWidth / 2) + (bmp_width * 0.5f);
+        xPos = ranGen.nextFloat() * (ScreenWidth - bmp_width) + (bmp_width * 0.5f);
         yPos = -1 * (bmp_height / 2);
-        speed = ranGen.nextFloat() * 30.0f + 10.0f;
+        speed = ranGen.nextFloat() * 100.0f + 200.0f;
 
         isInit = true;
     }
 
     @Override
     public void Update(float _dt) {
+        if (spawnDelay > 0) {
+            spawnDelay -= _dt;
+            return;
+        }
+
+
         yPos += speed * _dt;
+        Constraint();
+       // if (Collision.SphereToSphere(xPos, yPos, bmp_width * 0.5f, ))
+
     }
 
     @Override
@@ -144,17 +156,21 @@ public class Trash implements EntityBase, Collidable {
 
     @Override
     public float GetRadius() {
-        return bmp.getWidth();
+        return bmp.getWidth() * 0.5f;
     }
 
     @Override
     public void OnHit(Collidable _other) {
-
+        if (_other.GetType() == "NetEntity")
+        {
+            isDone = true;
+            CatchTheTrash.trash_cleaned++;
+        }
     }
 
     private void Constraint()
     {
-         if (yPos + bmp_height / 2 > ScreenHeight)
+         if (yPos > ScreenHeight + (bmp_height / 2))
              SetIsDone(true);
 
     }

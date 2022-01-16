@@ -19,7 +19,7 @@
         android:textSize="18dp" />
 
     <Button
-        android:id="@+id/btn_optionsmenu"
+        android:id="@+id/btn_history"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
@@ -27,7 +27,7 @@
         android:layout_marginTop="230dp"
         android:layout_marginRight="290dp"
         android:background="@drawable/button"
-        android:text="Settings"
+        android:text="history"
         android:textColor="#bdfcf2"
         android:textSize="18dp" />
 
@@ -43,5 +43,15 @@
         android:text="Exit"
         android:textColor="#bdfcf2"
         android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/btn_settings"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="352dp"
+        android:layout_marginRight="11dp"
+        android:background="@drawable/settings_button" />
 
 </RelativeLayout>

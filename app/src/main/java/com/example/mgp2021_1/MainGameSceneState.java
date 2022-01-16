@@ -31,7 +31,6 @@ public class MainGameSceneState implements StateBase {
     CustomButton pauseButton = null;
     RenderTextEntity FPS = null;
 
-
     // GameObject Entities
     public static Player player = null;
 
@@ -43,6 +42,7 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
+
         Camera.Instance.Init(_view);
 
         // Create and Init game scene bg
@@ -76,6 +76,28 @@ public class MainGameSceneState implements StateBase {
 
         // Create Buttons
         pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100, 1920 - 70, 70);
+
+
+        //TEST
+        GameSystem.Instance.SaveEditBegin();
+        GameSystem.Instance.SetIntInSave("Score0", 10);
+        for (int i = 1; i < 6; i++)
+        {
+            if (GameSystem.Instance.GetIntFromSave("Score" + i) == 0)
+            {
+
+                GameSystem.Instance.SetIntInSave("Score" + i, 10);
+                GameSystem.Instance.SaveEditEnd();
+                return;
+            }
+        }
+
+        for (int i = 1; i < 5; i++) {
+            GameSystem.Instance.SetIntInSave("Score" + i, GameSystem.Instance.GetIntFromSave("Score" + (i + 1)));
+        }
+        GameSystem.Instance.SetIntInSave("Score" + 5, 11);
+        GameSystem.Instance.SaveEditEnd();
+
     }
 
     @Override
@@ -90,6 +112,8 @@ public class MainGameSceneState implements StateBase {
         EntityManager.Instance.Render(_canvas);
        // System.out.println("MainGameSceneState::Render::Being Called");
 
+
+        // Pollution Bar
         Paint paint = new Paint();
         paint.setStrokeWidth(10);
         paint.setARGB(255, 255, 255, 255);
@@ -106,6 +130,7 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void Update(float _dt) {
 
+        timer += _dt;
 
         // FPS
         frameCount++;
@@ -125,8 +150,6 @@ public class MainGameSceneState implements StateBase {
         // All Entity Updates
         EntityManager.Instance.Update(_dt);
 
-        //TEMP POLLUTION TEST
-       // FPS.SetText("total pollution: " + AreaMarker.GetAvgPollution());
 
 
         // Check for Pause Button Click
@@ -135,6 +158,8 @@ public class MainGameSceneState implements StateBase {
             System.out.println("Game Paused");
             StateManager.Instance.SetOverlayState("Pause");
         }
+
+        // Check for End Game Condition
     }
 }
 

@@ -15,22 +15,27 @@ import com.example.mgp2021_1.Entities.RenderTextEntity;
 import com.example.mgp2021_1.Entities.Trash;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class CatchTheTrash implements StateBase
 {
+
 
     private float timer;
     private float minigame_duration = 10.0f;
     private RenderBackground bg = null;
     private Net net = null;
+    private int trash_num = 0;
+    public static int trash_cleaned = 0;
 
     private int ScreenWidth, ScreenHeight;
 
     CustomButton pauseButton;
     RenderTextEntity timer_text = null;
 
+    public static AreaMarker area = null;
 
-    private LinkedList<Trash> trashList = new LinkedList<Trash>();
+
 
     @Override
     public String GetName() {
@@ -67,12 +72,26 @@ public class CatchTheTrash implements StateBase
         timer_text.SetFont("fonts/EnsoBold.ttf");
         timer_text.SetText(" ");
 
+
+
+        // Game Related Vars
+        // Create Trash Entities
+        trash_cleaned = 0;
+        trash_num = (int)area.pollution / 5;
+        for (int i = 0; i < trash_num; i++)
+        {
+            Trash trash = Trash.CreateTemp();
+            trash.spawnDelay = new Random().nextFloat() * (minigame_duration - 3); //3 is so it wont spawn just before game ends
+            System.out.println("Trash Spawned. Trash Spawn Delay set to: " + trash.spawnDelay);
+        }
+
         EntityManager.TempInstance.InitEntities(_view);
 
     }
 
     @Override
     public void OnExit() {
+
         EntityManager.TempInstance.Clean();
         Camera.Instance.SetPos(MainGameSceneState.player.GetPosX(), MainGameSceneState.player.GetPosY());
     }
@@ -103,7 +122,15 @@ public class CatchTheTrash implements StateBase
         timer -= _dt;
         timer_text.SetText("" + (int)timer);
         if (timer <= 0.0)
-            StateManager.Instance.RemoveSecondaryState();
+            EndMiniGame();
 
     }
+
+    private void EndMiniGame()
+    {
+        area.pollution -= ((float)trash_cleaned / trash_num) * area.pollution;
+        StateManager.Instance.RemoveSecondaryState();
+    }
+
+
 }

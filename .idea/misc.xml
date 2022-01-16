@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/mobile prog tings/MGP2021_1/app/src/main/res/layout/helpmenu.xml" value="0.12708333333333333" />
+        <entry key="..\:/mobile prog tings/MGP2021_1/app/src/main/res/layout/leaderboard.xml" value="0.25" />
+        <entry key="..\:/mobile prog tings/MGP2021_1/app/src/main/res/layout/mainmenu.xml" value="0.25" />
+        <entry key="..\:/mobile prog tings/MGP2021_1/app/src/main/res/layout/optionmenu.xml" value="0.25" />
       </map>
     </option>
   </component>
