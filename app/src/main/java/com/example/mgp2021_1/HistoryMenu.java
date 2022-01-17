@@ -37,7 +37,8 @@ public class HistoryMenu extends Activity implements View.OnClickListener, State
         if (GameSystem.Instance.GetIntFromSave("BestScore") == 0)
             text_bestTiming.setText("Best Record: NULL");
         else
-            text_bestTiming.setText(String.format("Best Record: %d seconds", GameSystem.Instance.GetIntFromSave("BestScore")));
+            text_bestTiming.setText(String.format("Best Record: %d mins %d sec", GameSystem.Instance.GetIntFromSave("BestScore") / 60
+                    , GameSystem.Instance.GetIntFromSave("BestScore") % 60));
         text_History = (TextView) findViewById(R.id.text_history);
 
         String text = "LATEST CLEAR TIMINGS: \n";
@@ -45,7 +46,8 @@ public class HistoryMenu extends Activity implements View.OnClickListener, State
         {
             if (GameSystem.Instance.GetIntFromSave("Score" + i) == 0)
                 continue;
-            text += "\n" + String.format("Time taken: %d", GameSystem.Instance.GetIntFromSave("Score" + i));
+            text += "\n" + String.format("Time taken: %d mins %d sec", GameSystem.Instance.GetIntFromSave("Score" + i) / 60
+                    , GameSystem.Instance.GetIntFromSave("Score" + i) % 60);
         }
 
         text_History.setText(text);
