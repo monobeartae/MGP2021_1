@@ -38,7 +38,7 @@ public class Player implements EntityBase, Collidable {
     Matrix tfx = new Matrix();
     DisplayMetrics metrics;
 
-    private float playerSpeed = 400.0f;
+    private float playerSpeed = 350.0f;
 
 
     //check if anything to do with entity (use for pause)
@@ -61,27 +61,29 @@ public class Player implements EntityBase, Collidable {
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
 
-        bmp_width = ScreenWidth / 12;
-        bmp_height = ScreenHeight / 6;
+        bmp_width = ScreenWidth / 14;
+        bmp_height = ScreenHeight / 8;
 
-        Bitmap up_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_up);
-        Bitmap down_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_down);
-        Bitmap left_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_left);
-        Bitmap right_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_right);
-        up_bmp = Bitmap.createScaledBitmap(up_bmp, bmp_width * 4, bmp_height, true);
-        down_bmp = Bitmap.createScaledBitmap(down_bmp, bmp_width * 4, bmp_height, true);
-        left_bmp = Bitmap.createScaledBitmap(left_bmp, bmp_width * 4, bmp_height, true);
-        right_bmp = Bitmap.createScaledBitmap(right_bmp, bmp_width * 4, bmp_height, true);
+        Bitmap up_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_u);
+        Bitmap down_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_d);
+        Bitmap left_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_l);
+        Bitmap right_bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_r);
+        up_bmp = Bitmap.createScaledBitmap(up_bmp, bmp_width * 3, bmp_height, true);
+        down_bmp = Bitmap.createScaledBitmap(down_bmp, bmp_width * 3, bmp_height, true);
+        left_bmp = Bitmap.createScaledBitmap(left_bmp, bmp_width * 3, bmp_height, true);
+        right_bmp = Bitmap.createScaledBitmap(right_bmp, bmp_width * 3, bmp_height, true);
 
-        player_up = new Sprite(up_bmp,1,4, 4 );
-        player_down = new Sprite(down_bmp,1,4, 4 );
-        player_left = new Sprite(left_bmp,1,4, 4 );
-        player_right = new Sprite(right_bmp,1,4, 4 );
+        player_up = new Sprite(up_bmp,1,3, 4 );
+        player_down = new Sprite(down_bmp,1,3, 4 );
+        player_left = new Sprite(left_bmp,1,3, 4 );
+        player_right = new Sprite(right_bmp,1,3, 4 );
 
         player_sprite =  player_down;
 
-        xPos = (5760 / 2) - (bmp_width / 2);
-        yPos = (3240 / 2) - (bmp_height / 2);
+        //xPos = (5760 / 2) - (bmp_width / 2);
+       // yPos = (3240 / 2) - (bmp_height / 2);
+        xPos = 2550;
+        yPos = 1850;
 
         Camera.Instance.SetPos(xPos, yPos);
     }

@@ -30,10 +30,12 @@ public class AudioManager {
     {
         if (audioMap.containsKey(_id))
         {
-            audioMap.get(_id).reset();
+
+            audioMap.get(_id).seekTo(0);
             audioMap.get(_id).start();
             return;
         }
+
 
 
         // Load the audio
@@ -42,12 +44,37 @@ public class AudioManager {
         newAudio.start();
     }
 
+    public void PauseAudio(int _id)
+    {
+        if (!audioMap.containsKey(_id))
+            return;
+
+        audioMap.get(_id).pause();
+    }
+    public void ResumeAudio(int _id)
+    {
+        if (!audioMap.containsKey(_id))
+            return;
+
+        audioMap.get(_id).start();
+    }
+
     public void SetVolume(int _id, float volume)
     {
         if (!audioMap.containsKey(_id))
             return;
 
         audioMap.get(_id).setVolume(volume, volume);
+    }
+
+    public void LoopAudio(int _id)
+    {
+        if (!audioMap.containsKey(_id))
+            return;
+
+        audioMap.get(_id).setLooping(true);
+
+
     }
 
     public boolean IsPlaying(int _id)

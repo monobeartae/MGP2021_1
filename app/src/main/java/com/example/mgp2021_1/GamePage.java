@@ -43,7 +43,6 @@ public class GamePage extends FragmentActivity {
 
     public void EndGame()
     {
-        MainGameSceneState.RecordTiming();
         Intent intent = new Intent();
         intent.setClass(this, Mainmenu.class);
         StateManager.Instance.ChangeState("Mainmenu"); // Default is like a loading page

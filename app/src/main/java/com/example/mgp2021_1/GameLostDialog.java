@@ -19,6 +19,7 @@ public class GameLostDialog extends DialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        isShown = false;
                         GamePage.Instance.EndGame();
                     }
                 });

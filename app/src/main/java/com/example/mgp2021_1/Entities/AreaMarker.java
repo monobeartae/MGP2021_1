@@ -14,6 +14,7 @@ import com.example.mgp2021_1.EntityManager;
 import com.example.mgp2021_1.LayerConstants;
 import com.example.mgp2021_1.R;
 import com.example.mgp2021_1.ResourceManager;
+import com.example.mgp2021_1.Sprite;
 import com.example.mgp2021_1.StateManager;
 import com.example.mgp2021_1.SweepTheTrash;
 import com.example.mgp2021_1.TouchManager;
@@ -28,6 +29,7 @@ public class AreaMarker implements EntityBase, Collidable {
     // Image BMP
     private Bitmap bmp = null;
     private int bmp_width, bmp_height;
+    private Sprite flags_sprite = null;
 
     // Utility Vars
     int ScreenWidth, ScreenHeight;
@@ -36,11 +38,11 @@ public class AreaMarker implements EntityBase, Collidable {
     DisplayMetrics metrics;
 
     // AreaMarker Vars
-    static float total_pollution=0;
-    static int num_areas=0;
+    public static float total_pollution=0;
+    public static int num_areas=0;
 
     private float xPos, yPos;
-    public float pollution = 40;
+    public float pollution = 30;
     private float pollution_rate = 0.25f;
     private boolean isCollided = false;
 
@@ -63,17 +65,19 @@ public class AreaMarker implements EntityBase, Collidable {
     @Override
     public void Init(SurfaceView _view) {
         // Create and Init BMP
-        bmp = ResourceManager.Instance.GetBitmap(R.drawable.redflag);
+        bmp = ResourceManager.Instance.GetBitmap(R.drawable.flags);
 
         //Find the surfaceview size or screensize
         metrics = _view.getResources().getDisplayMetrics();
         ScreenHeight = metrics.heightPixels;
         ScreenWidth = metrics.widthPixels;
 
-        bmp_width = ScreenWidth / 10;
-        bmp_height = ScreenHeight / 7;
+        bmp_width = ScreenWidth / 4;
+        bmp_height = ScreenHeight / 10;
 
         bmp = Bitmap.createScaledBitmap(bmp, bmp_width, bmp_height, true);
+        flags_sprite = new Sprite(bmp, 1, 4, 4);
+
 
         // Create and Init UI
         cleanButton = CustomButton.Create(R.drawable.clean_btn, 414, 102,
@@ -98,6 +102,8 @@ public class AreaMarker implements EntityBase, Collidable {
 
     @Override
     public void Update(float _dt) {
+
+        flags_sprite.Update(_dt);
 
         if (pollution < 100)
         {
@@ -130,13 +136,13 @@ public class AreaMarker implements EntityBase, Collidable {
         float screenPosX = (ScreenWidth / 2) + xPos - Camera.Instance.GetPosX() - (bmp_width / 2);
         float screenPosY = (ScreenHeight / 2) + yPos - Camera.Instance.GetPosY() - (bmp_height / 2);
 
-        _canvas.drawBitmap(bmp, screenPosX, screenPosY, null); //1st image
-
         if (isCollided)
         {
             areaDetailMenu.Render(_canvas);
             areaPollution.Render(_canvas);
         }
+        //  _canvas.drawBitmap(bmp, screenPosX, screenPosY, null); //1st image
+        flags_sprite.Render(_canvas, (int)screenPosX, (int)screenPosY); //1st image
     }
 
     @Override
@@ -173,7 +179,8 @@ public class AreaMarker implements EntityBase, Collidable {
     @Override
     public float GetPosX()
     {
-        return xPos;
+        // offset for collision
+        return xPos - 240;
     }
 
     @Override

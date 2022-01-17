@@ -52,8 +52,8 @@ public class Joystick implements EntityBase {
         joystick_bmp=Bitmap.createScaledBitmap(ResourceManager.Instance.GetBitmap(R.drawable.joystick),inner_radius * 2,
                 inner_radius * 2, true);
 
-        posX=originX=outer_radius + 70;
-        posY=originY=metrics.heightPixels - outer_radius - 70;
+        posX=originX=outer_radius + 90;
+        posY=originY=metrics.heightPixels - outer_radius - 90;
 
 
     }

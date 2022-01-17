@@ -3,6 +3,7 @@ package com.example.mgp2021_1;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.provider.MediaStore;
 import android.view.SurfaceView;
 
 import android.app.AlertDialog;
@@ -36,6 +37,9 @@ public class MainGameSceneState implements StateBase {
     CustomButton pauseButton = null;
     RenderTextEntity FPS = null;
 
+    //TEMP
+   // RenderTextEntity pos_text = null;
+
     // GameObject Entities
     public static Player player = null;
 
@@ -53,7 +57,7 @@ public class MainGameSceneState implements StateBase {
 
         // Create and Init game scene bg
         RenderBackground bg = RenderBackground.Create();
-        bg.SetBMP(R.drawable.testmap);
+        bg.SetBMP(R.drawable.map_2);
         bg.SetBMPScale(5760, 3240);
 
         // Create and Init UI Entities
@@ -62,16 +66,25 @@ public class MainGameSceneState implements StateBase {
         FPS.SetPos(30, 80);
         FPS.SetColor(0,0,0);
 
+//        pos_text = RenderTextEntity.Create();
+//        pos_text.SetFont("fonts/EnsoBold.ttf");
+//        pos_text.SetPos(0, 1040);
+//        pos_text.SetColor(0,0,0);
+
         Joystick.Create();
 
         // Create and init Game related entities
         player = Player.Create();
 
+        AreaMarker.total_pollution=0;
+        AreaMarker.num_areas=0;
         float areaPos[] = {
-                1000, 1000,
-                200, 100,
-                500, 700,
-                3500, 1240
+                1710, 970,
+                2740, 750,
+                2250, 1700,
+                5070, 2570,
+                4410, 1680,
+                2980, 2330
         };
 
         for (int i = 0; i < areaPos.length; i += 2)
@@ -86,6 +99,7 @@ public class MainGameSceneState implements StateBase {
 
         AudioManager.Instance.PlayAudio(R.raw.monkeys);
         AudioManager.Instance.SetVolume(R.raw.monkeys, 1.0f);
+        AudioManager.Instance.LoopAudio(R.raw.monkeys);
     }
 
     @Override
@@ -130,6 +144,8 @@ public class MainGameSceneState implements StateBase {
         }
         FPS.SetText("fps:" + fps);
 
+       // pos_text.SetText("Pos: " + player.GetPosX() + ", " + player.GetPosY());
+
         Camera.Instance.Update(_dt);
 
         AreaMarker.ResetTotalPollution();
@@ -144,13 +160,14 @@ public class MainGameSceneState implements StateBase {
         }
 
         // Check for End Game Condition
-        if (AreaMarker.GetAvgPollution() < 10 && !GameWinDialog.isShown)
+        if (AreaMarker.GetAvgPollution() < 20 && !GameWinDialog.isShown)
         {
             // Cleared
+            RecordTiming();
             GameWinDialog winDialog = new GameWinDialog();
             winDialog.show(GamePage.Instance.getSupportFragmentManager(), "GameWin");
         }
-        else if (AreaMarker.GetAvgPollution() > 70)
+        else if (AreaMarker.GetAvgPollution() > 60 && !GameLostDialog.isShown)
         {
             // Lost
             GameLostDialog loseDialog = new GameLostDialog();

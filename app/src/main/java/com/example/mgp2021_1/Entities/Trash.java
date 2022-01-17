@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import com.example.mgp2021_1.AudioManager;
 import com.example.mgp2021_1.CatchTheTrash;
 import com.example.mgp2021_1.Collidable;
 import com.example.mgp2021_1.Collision;
@@ -59,15 +60,18 @@ public class Trash implements EntityBase, Collidable {
 
         Random ranGen = new Random();
 
-        int trash_type = ranGen.nextInt(2);
+        int trash_type = ranGen.nextInt(3);
         Bitmap image = null;
         switch (trash_type)
         {
             case 0:
-                image = ResourceManager.Instance.GetBitmap(R.drawable.star);
+                image = ResourceManager.Instance.GetBitmap(R.drawable.trash_1);
                 break;
             case 1:
-                image = ResourceManager.Instance.GetBitmap(R.drawable.stone);
+                image = ResourceManager.Instance.GetBitmap(R.drawable.trash_2);
+                break;
+            case 2:
+                image = ResourceManager.Instance.GetBitmap(R.drawable.trash_3);
                 break;
             default:
                 break;
@@ -78,7 +82,7 @@ public class Trash implements EntityBase, Collidable {
 
         xPos = ranGen.nextFloat() * (ScreenWidth - bmp_width) + (bmp_width * 0.5f);
         yPos = -1 * (bmp_height / 2);
-        speed = ranGen.nextFloat() * 100.0f + 200.0f;
+        speed = ranGen.nextFloat() * 200.0f + 200.0f;
 
         isInit = true;
     }
@@ -165,13 +169,18 @@ public class Trash implements EntityBase, Collidable {
         {
             isDone = true;
             CatchTheTrash.trash_cleaned++;
+            AudioManager.Instance.PlayAudio(R.raw.effect1);
+            AudioManager.Instance.SetVolume(R.raw.effect1, 1.0f);
         }
     }
 
     private void Constraint()
     {
-         if (yPos > ScreenHeight + (bmp_height / 2))
+         if (yPos > ScreenHeight + (bmp_height / 2)) {
              SetIsDone(true);
+             AudioManager.Instance.PlayAudio(R.raw.effect_break);
+             AudioManager.Instance.SetVolume(R.raw.effect_break, 1.0f);
+         }
 
     }
 }

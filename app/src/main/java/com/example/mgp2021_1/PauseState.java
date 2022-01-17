@@ -36,6 +36,8 @@ public class PauseState implements StateBase {
         pause_menu.SetScale(600, 600);
         pause_menu.SetPos(ScreenWidth/2, ScreenHeight/2);
         pause_menu.Init(_view);
+
+        AudioManager.Instance.PauseAudio(R.raw.monkeys);
     }
 
     @Override
@@ -57,7 +59,9 @@ public class PauseState implements StateBase {
 
         if (btn_resume.CheckButtonClick()) {
             System.out.println("Game Resumed");
+            AudioManager.Instance.ResumeAudio(R.raw.monkeys);
             StateManager.Instance.RemoveOverlayState();
+
         }
         if (btn_exit.CheckButtonClick())
         {
