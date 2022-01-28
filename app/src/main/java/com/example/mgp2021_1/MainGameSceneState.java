@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.provider.MediaStore;
 import android.view.SurfaceView;
 
+import android.util.DisplayMetrics;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -26,6 +27,10 @@ import java.util.Vector;
 public class MainGameSceneState implements StateBase {
 
     public static float timer = 0.0f;
+
+    // MEtrics
+    DisplayMetrics metrics;
+    int ScreenWidth, ScreenHeight;
 
     // FPS
     int frameCount;
@@ -52,6 +57,10 @@ public class MainGameSceneState implements StateBase {
     public void OnEnter(SurfaceView _view)
     {
         timer = 0;
+
+        metrics = _view.getResources().getDisplayMetrics();
+        ScreenHeight = metrics.heightPixels;
+        ScreenWidth = metrics.widthPixels;
 
         Camera.Instance.Init(_view);
 
@@ -95,7 +104,7 @@ public class MainGameSceneState implements StateBase {
 
         // Create Buttons
         pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100,
-                1920 - 70, 70);
+                (int)(ScreenWidth * 0.96), (int)(ScreenHeight * 0.06));
 
         AudioManager.Instance.PlayAudio(R.raw.monkeys);
         AudioManager.Instance.SetVolume(R.raw.monkeys, 1.0f);

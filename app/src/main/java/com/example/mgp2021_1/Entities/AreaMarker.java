@@ -1,6 +1,5 @@
 package com.example.mgp2021_1.Entities;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.DisplayMetrics;
@@ -9,18 +8,12 @@ import android.view.SurfaceView;
 import com.example.mgp2021_1.Camera;
 import com.example.mgp2021_1.CatchTheTrash;
 import com.example.mgp2021_1.Collidable;
-import com.example.mgp2021_1.Collision;
 import com.example.mgp2021_1.EntityManager;
 import com.example.mgp2021_1.LayerConstants;
 import com.example.mgp2021_1.R;
 import com.example.mgp2021_1.ResourceManager;
 import com.example.mgp2021_1.Sprite;
 import com.example.mgp2021_1.StateManager;
-import com.example.mgp2021_1.SweepTheTrash;
-import com.example.mgp2021_1.TouchManager;
-
-import java.util.Random;
-import java.util.ResourceBundle;
 
 public class AreaMarker implements EntityBase, Collidable {
 
@@ -80,20 +73,20 @@ public class AreaMarker implements EntityBase, Collidable {
 
 
         // Create and Init UI
-        cleanButton = CustomButton.Create(R.drawable.clean_btn, 414, 102,
-                ScreenWidth - 320, ScreenHeight - 300);
+        cleanButton = CustomButton.Create(R.drawable.clean_btn, ScreenWidth / 5, ScreenHeight / 8,
+                (int)(ScreenWidth * 0.83), (int)(ScreenHeight * 0.72));
         cleanButton.Init(_view);
 
         areaDetailMenu = new UIBackground();
         areaDetailMenu.SetBMP(R.drawable.ui_frame1);
-        areaDetailMenu.SetScale(600,700);
-        areaDetailMenu.SetPos(1650,650);
+        areaDetailMenu.SetScale((int)(ScreenWidth * 0.3),(int)(ScreenHeight * 0.65));
+        areaDetailMenu.SetPos((int)(ScreenWidth * 0.86),(int)(ScreenHeight * 0.6));
         areaDetailMenu.Init(_view);
 
         areaPollution = new RenderTextEntity();
         areaPollution.SetFont("fonts/Contender.otf");
         areaPollution.Init(_view);
-        areaPollution.SetPos(1450, 600);
+        areaPollution.SetPos((int)(ScreenWidth * 0.75), (int)(ScreenHeight * 0.56));
         areaPollution.SetTextSize(70);
         areaPollution.SetColor(100,10,100);
 

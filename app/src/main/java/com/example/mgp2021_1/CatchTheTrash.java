@@ -64,7 +64,8 @@ public class CatchTheTrash implements StateBase
 
         // Create UI
         // Create Buttons
-        pauseButton = CustomButton.CreateTemp(R.drawable.pausebutton, 100, 100, 1920 - 70, 70);
+        pauseButton = CustomButton.Create(R.drawable.pausebutton, 100, 100,
+                (int)(ScreenWidth * 0.96), (int)(ScreenHeight * 0.06));
 
         timer_text = RenderTextEntity.CreateTemp();
         timer_text.SetColor(255,255,255);

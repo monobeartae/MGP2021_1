@@ -94,6 +94,7 @@ public class Player implements EntityBase, Collidable {
         float dirX = Joystick.Instance.GetDirX();
         float dirY = Joystick.Instance.GetDirY();
 
+
         xPos += dirX * _dt * playerSpeed;
         yPos += dirY * _dt * playerSpeed;
 
