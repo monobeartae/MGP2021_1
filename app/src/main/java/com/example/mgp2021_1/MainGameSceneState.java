@@ -127,12 +127,13 @@ public class MainGameSceneState implements StateBase {
         paint.setStrokeWidth(10);
         paint.setARGB(255, 255, 255, 255);
         paint.setStyle(Paint.Style.STROKE);
-        _canvas.drawRect((1920 / 2) - 490.0f, 10,(1920 / 2) + 510.0f,70, paint);
+        _canvas.drawRect((ScreenWidth / 2) - (ScreenWidth * 0.255f), 10,
+                (ScreenWidth / 2) + (ScreenWidth * 0.265f),70, paint);
 
         paint.setColor(Color.MAGENTA);
         paint.setStyle(Paint.Style.FILL);
-        _canvas.drawRect((1920 / 2) - 490.0f, 15,
-                (1920 / 2) - 500.0f + (AreaMarker.GetAvgPollution() / 100) * 1000.0f,65, paint);
+        _canvas.drawRect((ScreenWidth / 2) - (ScreenWidth * 0.255f), 15,
+                (ScreenWidth / 2) - (ScreenWidth * 0.26f) + (AreaMarker.GetAvgPollution() / 100) * 1000.0f,65, paint);
 
     }
 

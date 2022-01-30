@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.content.Intent;
+import android.widget.ImageButton;
 import android.window.SplashScreen;
 
 
@@ -18,7 +19,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     //Define buttons
     private Button btn_start;
     private Button btn_exit;
-    private Button btn_settings;
+    private ImageButton btn_settings;
     private Button btn_history;
 
     @Override
@@ -40,7 +41,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         btn_exit = (Button)findViewById(R.id.btn_exit);
         btn_exit.setOnClickListener(this); //Set Listener to this button --> Back Button
 
-        btn_settings = (Button)findViewById(R.id.btn_settings);
+        btn_settings = (ImageButton)findViewById(R.id.btn_settings);
         btn_settings.setOnClickListener(this); //Set Listener to this button --> Back Button
 
         btn_history = (Button)findViewById(R.id.btn_history);

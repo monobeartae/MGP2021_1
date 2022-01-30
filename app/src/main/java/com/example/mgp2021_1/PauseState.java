@@ -27,9 +27,9 @@ public class PauseState implements StateBase {
         int ScreenWidth = metrics.widthPixels;
 
         btn_resume = new CustomButton(R.drawable.resume_btn, 414, 102,
-                ScreenWidth / 2, ScreenHeight - 600);
+                ScreenWidth / 2, (int)(ScreenHeight * 0.44));
         btn_exit = new CustomButton(R.drawable.exit_btn, 414, 102,
-                ScreenWidth / 2, ScreenHeight - 400);
+                ScreenWidth / 2, (int)(ScreenHeight * 0.63));
 
         pause_menu = new UIBackground();
         pause_menu.SetBMP(R.drawable.ui_frame1);

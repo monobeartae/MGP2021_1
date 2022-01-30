@@ -87,7 +87,7 @@ public class AreaMarker implements EntityBase, Collidable {
         areaPollution.SetFont("fonts/Contender.otf");
         areaPollution.Init(_view);
         areaPollution.SetPos((int)(ScreenWidth * 0.75), (int)(ScreenHeight * 0.56));
-        areaPollution.SetTextSize(70);
+        areaPollution.SetTextSize(ScreenWidth / 27);
         areaPollution.SetColor(100,10,100);
 
         num_areas++;

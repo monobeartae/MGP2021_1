@@ -44,7 +44,7 @@
         android:textColor="#bdfcf2"
         android:textSize="18dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_settings"
         android:layout_width="50dp"
         android:layout_height="50dp"

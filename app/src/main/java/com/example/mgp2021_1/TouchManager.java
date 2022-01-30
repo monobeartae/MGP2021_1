@@ -34,7 +34,8 @@ public class TouchManager {
 
     public boolean IsClicked(){
 
-        boolean isClick = prev_status == TouchState.DOWN && status == TouchState.NONE;
+        boolean isClick = (prev_status == TouchState.DOWN || prev_status == TouchState.MOVE)
+                && status == TouchState.NONE;
 
         return isClick;
     }
